@@ -1,26 +1,26 @@
 "use client";
 
 import LogoLink from "../common/LogoLink";
-import Navbar from "./Navbar";
-import Typography from "@mui/material/Typography";
+import NavbarLinks from "./NavbarLinks";
+
 
 export default function Footer() {
   return (
-    <footer className="border-t border-foreground/10 py-8">
+    <footer className="border-t border-foreground/10 py-8 bg-stone-50">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 ">
           <div className="flex flex-col items-center md:items-start">
             <LogoLink />
-            <p className="mt-4 text-2xl md:text-4xl font-thin italic text-foreground/80 text-center md:text-left font-dancing">
-              Hayallerinizin tadını <br /> çıkarmaya hazır olun.
+            <p className="mt-4 text-xl md:text-xl text-foreground/80 text-center md:text-left font-dancing font-regular">
+              Hayallerinizin tadını çıkarmaya hazır olun.
             </p>
           </div>
-          <div className="flex flex-row justify-center md:justify-start gap-10 lg:gap-20">
+          <div className="flex flex-row justify-center md:justify-start gap-10 lg:gap-36">
             {/* Navigation */}
             <div className="flex flex-col items-start md:items-start">
               <h3 className="font-semibold mb-4">Hızlı Bağlantılar</h3>
               <nav className="flex flex-col items-start gap-2">
-                <Navbar />
+                <NavbarLinks />
               </nav>
             </div>
 
@@ -58,7 +58,7 @@ export default function Footer() {
         {/* Copyright */}
         <div className="mt-8 pt-8 border-t border-foreground/10 text-center text-foreground/60">
           <p>
-            &copy; {new Date().getFullYear()} Zumers Cake. Tüm hakları saklıdır.
+            &copy; {new Date().getFullYear()} Zumer's Cake. Tüm hakları saklıdır.
           </p>
         </div>
       </div>

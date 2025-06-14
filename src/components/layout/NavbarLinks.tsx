@@ -1,6 +1,8 @@
 import Link from "next/link";
+import GalleryLink from "../common/GalleryLink";
+import OrderLink from "../common/OrderLink";
 
-interface NavbarProps {
+interface NavbarLinksProps {
   onLinkClick?: () => void;
 }
 enum Page {
@@ -11,12 +13,12 @@ enum Page {
   contact = "İletişim",
 }
 
-export default function Navbar({ onLinkClick }: NavbarProps) {
+export default function NavbarLinks({ onLinkClick }: NavbarLinksProps) {
   return (
     <>
       <Link
         href="/"
-        className="text-foreground/80 hover:text-foreground transition-colors"
+        className="text-foreground/80 hover:text-foreground transition-colors font-"
         onClick={onLinkClick}
       >
         {Page.home}
@@ -28,27 +30,14 @@ export default function Navbar({ onLinkClick }: NavbarProps) {
       >
         {Page.about}
       </Link>
-      <Link
-        href="/gallery"
-        className="text-foreground/80 hover:text-foreground transition-colors"
-        onClick={onLinkClick}
-      >
-        {Page.gallery}
-      </Link>
-
+      <GalleryLink />
+      <OrderLink />
       <Link
         href="/contact"
         className="text-foreground/80 hover:text-foreground transition-colors"
         onClick={onLinkClick}
       >
         {Page.contact}
-      </Link>
-      <Link
-        href="/order"
-        className="inline-block bg-rose-500 text-white px-6 py-2 rounded-full hover:bg-rose-700 transition-colors"
-        onClick={onLinkClick}
-      >
-        {Page.order}
       </Link>
     </>
   );

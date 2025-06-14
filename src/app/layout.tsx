@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Dancing_Script } from "next/font/google";
 import "./globals.css";
-import ThemeProvider from "@/components/providers/ThemeProvider";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 
@@ -34,14 +33,12 @@ export default function RootLayout({
       lang="tr"
       className={`${inter.variable} ${dancingScript.variable} ${inter.className}`}
     >
-      <body className="antialiased font-inter font-light">
-        <ThemeProvider>
-          <div className="flex flex-col min-h-screen">
-            <Header />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </div>
-        </ThemeProvider>
+      <body className="antialiased font-inter font-regular text-slate-700">
+        <div className="flex flex-col min-h-screen">
+          <Header />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+        </div>
       </body>
     </html>
   );

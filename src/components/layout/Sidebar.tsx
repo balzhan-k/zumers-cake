@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import Navbar from "./Navbar";
+import Navbar from "./NavbarLinks";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -43,7 +43,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
     <>
       {/* Overlay */}
       <div
-        className={`fixed inset-0 bg-black/50 transition-opacity md:hidden ${
+        className={`fixed inset-0 bg-black/50 transition-opacity md:hidden z-50  ${
           isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
         onClick={onClose}
@@ -52,7 +52,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       {/* Sidebar */}
       <div
         id="sidebar"
-        className={`fixed top-0 right-0 h-full w-64 bg-background shadow-lg transform transition-transform duration-300 ease-in-out md:hidden ${
+        className={`fixed top-0 right-0 h-full w-64 bg-background shadow-lg transform transition-transform duration-300 ease-in-out md:hidden z-50 bg-stone-50 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
