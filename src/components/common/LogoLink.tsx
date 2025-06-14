@@ -3,10 +3,9 @@ import Image from "next/image";
 
 interface LogoLinkProps {
   className?: string;
-  onClick?: () => void;
 }
 
-export default function LogoLink({ className = "", onClick }: LogoLinkProps ) {
+export default function LogoLink({ className = "" }: LogoLinkProps) {
   return (
     <Link
       href="/"
@@ -19,7 +18,7 @@ export default function LogoLink({ className = "", onClick }: LogoLinkProps ) {
         height={40}
         className="mr-2 "
       />
-      Zumer's Cake
+      Zumer&apos;s Cake
     </Link>
   );
 }

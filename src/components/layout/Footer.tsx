@@ -3,7 +3,6 @@
 import LogoLink from "../common/LogoLink";
 import NavbarLinks from "./NavbarLinks";
 
-
 export default function Footer() {
   return (
     <footer className="border-t border-foreground/10 py-8 bg-stone-50">
@@ -58,7 +57,8 @@ export default function Footer() {
         {/* Copyright */}
         <div className="mt-8 pt-8 border-t border-foreground/10 text-center text-foreground/60">
           <p>
-            &copy; {new Date().getFullYear()} Zumer's Cake. Tüm hakları saklıdır.
+            &copy; {new Date().getFullYear()} Zumer&apos;s Cake. Tüm hakları
+            saklıdır.
           </p>
         </div>
       </div>

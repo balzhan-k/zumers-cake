@@ -38,8 +38,8 @@ export default function Home() {
             Hikayemiz
           </h3>
           <p className="text-sm md:text-lg mb-8 font-regular text-slate-700">
-            Zümer's Cake olarak, lezzetli pastalar aracılığıyla neşe dolu anlar
-            yaratmaya, insanların hayatına tatlı bir dokunuş katmaya
+            Zümer&apos;s Cake olarak, lezzetli pastalar aracılığıyla neşe dolu
+            anlar yaratmaya, insanların hayatına tatlı bir dokunuş katmaya
             çalışıyorum. Her tarifimde en taze malzemeleri kullanıyor, her
             pastayı sevgiyle hazırlıyorum. Benim için bu sadece bir iş değil;
             hayalleri şekillendirmek, anılara lezzet katmak.
