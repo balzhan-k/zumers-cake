@@ -30,8 +30,8 @@ export default function NavbarLinks({ onLinkClick }: NavbarLinksProps) {
       >
         {Page.about}
       </Link>
-      <GalleryLink />
-      <OrderLink />
+      <GalleryLink onClick={onLinkClick} />
+      <OrderLink onClick={onLinkClick} />
       <Link
         href="/contact"
         className="text-foreground/80 hover:text-foreground transition-colors"
