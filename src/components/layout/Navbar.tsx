@@ -1,10 +1,17 @@
 import Link from "next/link";
 
-interface NavigationLinksProps {
+interface NavbarProps {
   onLinkClick?: () => void;
 }
+enum Page {
+  home = "Ana Sayfa",
+  about = "Hakkında",
+  gallery = "Galeri",
+  order = "Sipariş Oluştur",
+  contact = "İletişim",
+}
 
-export default function NavigationLinks({ onLinkClick }: NavigationLinksProps) {
+export default function Navbar({ onLinkClick }: NavbarProps) {
   return (
     <>
       <Link
@@ -12,35 +19,36 @@ export default function NavigationLinks({ onLinkClick }: NavigationLinksProps) {
         className="text-foreground/80 hover:text-foreground transition-colors"
         onClick={onLinkClick}
       >
-        Ana Sayfa
+        {Page.home}
       </Link>
       <Link
         href="/about"
         className="text-foreground/80 hover:text-foreground transition-colors"
         onClick={onLinkClick}
       >
-        Hakkında
+        {Page.about}
       </Link>
       <Link
         href="/gallery"
         className="text-foreground/80 hover:text-foreground transition-colors"
         onClick={onLinkClick}
       >
-        Galeri
+        {Page.gallery}
       </Link>
-      <Link
-        href="/order"
-        className="text-foreground/80 hover:text-foreground transition-colors"
-        onClick={onLinkClick}
-      >
-        Sipariş Oluştur
-      </Link>
+
       <Link
         href="/contact"
         className="text-foreground/80 hover:text-foreground transition-colors"
         onClick={onLinkClick}
       >
-        İletişim
+        {Page.contact}
+      </Link>
+      <Link
+        href="/order"
+        className="inline-block bg-rose-500 text-white px-6 py-2 rounded-full hover:bg-rose-700 transition-colors"
+        onClick={onLinkClick}
+      >
+        {Page.order}
       </Link>
     </>
   );

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import NavigationLinks from "./NavigationLinks";
+import Navbar from "./Navbar";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -78,7 +78,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           </button>
 
           <nav className="mt-8 flex flex-col gap-4">
-            <NavigationLinks onLinkClick={onClose} />
+            <Navbar onLinkClick={onClose} />
           </nav>
         </div>
       </div>
