@@ -12,7 +12,7 @@ export default function LogoLink({ className = "" }: LogoLinkProps) {
       className={`font-dancing text-2xl font-bold text-foreground flex items-center text-slate-700 ${className}`}
     >
       <Image
-        src="/images/logo/logo.jpg"
+        src="/logo/logo.jpg"
         alt="Zumer's Cake Logo"
         width={40}
         height={40}
