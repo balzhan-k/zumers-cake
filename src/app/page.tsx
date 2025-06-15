@@ -1,7 +1,5 @@
-import GalleryLink from "@/components/common/GalleryLink";
-import OrderLink from "@/components/common/OrderLink";
+import CustomLink from "@/components/common/CustomLink";
 import Image from "next/image";
-import Link from "next/link";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
 export default function Home() {
@@ -27,8 +25,12 @@ export default function Home() {
             geçirebiliriz.
           </p>
           <div className="flex justify-center gap-4">
-            <GalleryLink variant="button" />
-            <OrderLink variant="button" />
+            <CustomLink href="/gallery" variant="button">
+              Galeri
+            </CustomLink>
+            <CustomLink href="/order" variant="button">
+              Sipariş Oluştur
+            </CustomLink>
           </div>
         </div>
       </section>
@@ -44,12 +46,14 @@ export default function Home() {
             pastayı sevgiyle hazırlıyorum. Benim için bu sadece bir iş değil;
             hayalleri şekillendirmek, anılara lezzet katmak.
           </p>
-          <Link
+          <CustomLink
+            className="flex items-center hover:text-rose-700 transition-colors"
             href="/about"
-            className="text-sm md:text-lg mb-8 font-regular text-rose-500 flex items-center gap-2 hover:text-rose-800 transition-colors"
+            color="rose-500"
           >
-            Daha Fazla Bilgi Edinin <ArrowRightIcon className="w-4 h-4" />
-          </Link>
+            Daha Fazla Bilgi Edinin
+            <ArrowRightIcon className="w-4 h-4 ml-2 text-rose-500 hover:text-rose-700 transition-colors" />
+          </CustomLink>
         </div>
       </section>
     </div>

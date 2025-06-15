@@ -16,7 +16,7 @@ export default function Footer() {
           </div>
           <div className="flex flex-row justify-center md:justify-start gap-10 lg:gap-36">
             {/* Navigation */}
-            <div className="flex flex-col items-start md:items-start">
+            <div className="flex flex-col items-start md:items-start text-base md:text-md">
               <h3 className="font-semibold mb-4">Hızlı Bağlantılar</h3>
               <nav className="flex flex-col items-start gap-2">
                 <NavbarLinks />
@@ -24,7 +24,7 @@ export default function Footer() {
             </div>
 
             {/* Contact Info */}
-            <div className="flex flex-col items-start md:items-start">
+            <div className="flex flex-col items-start md:items-start text-base md:text-md">
               <h3 className="font-semibold mb-4">İletişim</h3>
               <div className="space-y-2 text-foreground/80">
                 <p>
