@@ -11,7 +11,7 @@ interface TextElementProps {
 type TextElementVariant = "h1" | "h3" | "p";
 
 export default function TextElement({
-  id,
+  id, 
   variant,
   children,
   className,
@@ -24,5 +24,9 @@ export default function TextElement({
 
   const Tag = variant;
 
-  return <Tag className={clsx(baseStyles[variant], className)}>{children}</Tag>;
+  return (
+    <Tag id={id} className={clsx(baseStyles[variant], className)}>
+      {children}
+    </Tag>
+  );
 }
