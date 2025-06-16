@@ -52,11 +52,11 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
       {/* Sidebar */}
       <div
         id="sidebar"
-        className={`fixed top-0 right-0 h-full w-64 bg-background shadow-lg transform transition-transform duration-300 ease-in-out md:hidden z-50 bg-stone-50 ${
+        className={`fixed top-0 right-0 h-full w-full bg-background shadow-lg transform transition-transform duration-300 ease-in-out md:hidden z-50 bg-stone-50 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <div className="p-4">
+        <div className="p-4 flex flex-col h-full justify-center items-center">
           <button
             onClick={onClose}
             className="absolute top-4 right-4 text-foreground/60 hover:text-foreground"
@@ -77,7 +77,7 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
             </svg>
           </button>
 
-          <nav className="mt-8 flex flex-col gap-4">
+          <nav className="flex flex-col gap-4 items-center justify-center">
             <Navbar onLinkClick={onClose} />
           </nav>
         </div>

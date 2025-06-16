@@ -50,7 +50,7 @@ export default function NavbarLinks({ onLinkClick }: NavbarLinksProps) {
           <Link
             key={item.key}
             href={item.href}
-            className="text-foreground/80 hover:text-foreground transition-colors text-base md:text-md"
+            className="text-foreground/80 hover:text-foreground transition-colors text-base md:text-md hover:text-rose-500"
             onClick={onLinkClick}
           >
             {item.text}

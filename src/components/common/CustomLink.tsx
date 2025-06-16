@@ -19,7 +19,7 @@ export default function CustomLink({
   children,
 }: CustomLinkProps) {
   const baseStyles =
-    "text-foreground/80 hover:text-foreground transition-colors text-base md:text-md";
+    "text-foreground/80 transition-colors text-base md:text-md hover:text-rose-500";
   const buttonStyles =
     "inline-block bg-rose-500 text-white px-6 py-2 rounded-full hover:bg-rose-700 transition-colors text-base md:text-md";
 
