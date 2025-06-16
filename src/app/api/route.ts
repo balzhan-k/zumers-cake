@@ -9,8 +9,6 @@ export async function POST(req: NextRequest) {
 
     const emailHtml = `
       <h2>Yeni Pasta Siparişi</h2>
-      <p><strong>İsim:</strong> ${data.nameSurname}</p>
-      <p><strong>Telefon:</strong> ${data.phone}</p>
       <p><strong>Özel Gün:</strong> ${data.occasion} - ${data.otherOccasionDetails}</p>
       <p><strong>Kişi Sayısı:</strong> ${data.servings} - ${data.otherServingsDetails}</p>
       <p><strong>Pasta Türü:</strong> ${data.cakeType} - ${data.otherCakeTypeDetails}</p>
@@ -19,6 +17,8 @@ export async function POST(req: NextRequest) {
       <p><strong>Alerjiler:</strong> ${data.allergies}</p>
       <p><strong>Not:</strong> ${data.cakeNote}</p>
       <p><strong>Ek İstekler:</strong> ${data.specialRequests}</p>
+      <p><strong>İsim:</strong> ${data.nameSurname}</p>
+      <p><strong>Telefon:</strong> ${data.phone}</p>
       <p><strong>Teslimat Tarihi:</strong> ${data.deliveryDate}</p>
     `;
 
