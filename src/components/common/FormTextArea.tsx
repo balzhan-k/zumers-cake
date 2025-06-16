@@ -11,7 +11,7 @@ interface FormTextAreaProps {
 }
 
 export default function FormTextArea({
-  id,
+  id, 
   placeholder,
   value,
   onChange,
@@ -24,6 +24,7 @@ export default function FormTextArea({
 
   return (
     <textarea
+      id={id}
       placeholder={placeholder}
       value={value}
       onChange={(e) => onChange(e.target.value)}
