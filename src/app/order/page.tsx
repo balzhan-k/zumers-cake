@@ -4,7 +4,7 @@ import { useState } from "react";
 import CustomFormButton from "@/components/common/CustomFormButton";
 import TextElement from "@/components/common/TextElement";
 import FormTextInput from "@/components/common/FormTextInput";
-import PhotoUploadField from "@/components/common/PhotouploadField";
+import PhotoUploadField from "@/components/common/PhotoUploadField";
 import FormTextArea from "@/components/common/FormTextArea";
 
 interface OrderFormData {
