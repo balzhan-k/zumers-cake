@@ -1,5 +1,6 @@
 import CustomLink from "@/components/common/CustomLink";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 
 export default function Home() {
@@ -46,14 +47,12 @@ export default function Home() {
             pastayı sevgiyle hazırlıyorum. Benim için bu sadece bir iş değil;
             hayalleri şekillendirmek, anılara lezzet katmak.
           </p>
-          <CustomLink
-            className="flex items-center hover:text-rose-700 transition-colors"
+          <Link
             href="/about"
-            color="rose-500"
+            className="text-sm md:text-lg mb-8 font-regular text-rose-500 flex items-center gap-2 hover:text-rose-800 transition-colors"
           >
-            Daha Fazla Bilgi Edinin
-            <ArrowRightIcon className="w-4 h-4 ml-2 text-rose-500 hover:text-rose-700 transition-colors" />
-          </CustomLink>
+            Daha Fazla Bilgi Edinin <ArrowRightIcon className="w-4 h-4" />
+          </Link>
         </div>
       </section>
     </div>
