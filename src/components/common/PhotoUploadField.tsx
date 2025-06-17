@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
 interface PhotoUploadFieldProps {
-  value: File | null;
-  onChange: (file: File | null) => void;
+  value: string | null;
+  onChange: (url: string | null) => void;
   hintText: string;
   maxSizeMB: number;
   acceptedFileTypes: string[];
@@ -18,20 +18,13 @@ export default function PhotoUploadField({
   maxSizeMB = 10,
   acceptedFileTypes = ["image/png", "image/jpeg", "image/gif"],
 }: PhotoUploadFieldProps) {
-  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(value);
 
   useEffect(() => {
-    if (!value) {
-      setPreviewUrl(null);
-      return;
-    }
-    const objectUrl = URL.createObjectURL(value);
-    setPreviewUrl(objectUrl);
-
-    return () => URL.revokeObjectURL(objectUrl);
+    setPreviewUrl(value);
   }, [value]);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files ? e.target.files[0] : null;
 
     if (file) {
@@ -41,13 +34,30 @@ export default function PhotoUploadField({
         onChange(null);
         return;
       }
-      if (!file.type.startsWith("image/")) {
-        alert("Lütfen bir resim dosyası seçiniz.");
+      if (!acceptedFileTypes.includes(file.type)) {
+        alert("Lütfen geçerli bir resim dosyası seçiniz.");
         e.target.value = "";
         onChange(null);
         return;
       }
-      onChange(file);
+
+      try {
+        const response = await fetch(`/api/upload?filename=${file.name}`, {
+          method: "POST",
+          body: file,
+        });
+
+        if (!response.ok) {
+          throw new Error(`Upload failed with status: ${response.status}`);
+        }
+
+        const newBlob = await response.json();
+        onChange(newBlob.url);
+      } catch (error) {
+        console.error("Error uploading file:", error);
+        alert("Fotoğraf yüklenirken bir hata oluştu.");
+        onChange(null);
+      }
     } else {
       onChange(null);
     }
@@ -78,7 +88,7 @@ export default function PhotoUploadField({
             onChange={handleFileChange}
           />
 
-          {previewUrl && value ? (
+          {previewUrl ? (
             <div className="relative w-full h-48 mb-4">
               <Image
                 width={100}
@@ -88,7 +98,7 @@ export default function PhotoUploadField({
                 className="object-contain w-full h-full rounded-md"
               />
               <p className="text-gray-600 text-sm mt-2">
-                Seçilen Dosya: {value.name} ({Math.round(value.size / 1024)} KB)
+                Seçilen Dosya: {previewUrl.split("/").pop()} (
               </p>
             </div>
           ) : (

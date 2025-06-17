@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@vercel/blob": "^1.1.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.16.0",
     "moment": "^2.30.1",

@@ -321,8 +321,8 @@ export default function OrderPage() {
             7. Özel tema veya konsept örneği:
           </TextElement>
           <PhotoUploadField
-            value={formData.photo}
-            onChange={handlePhotoChange}
+            value={formData.photo ? URL.createObjectURL(formData.photo) : null}
+            onChange={handlePhotoChange as (url: string | null) => void}
             hintText="PNG, JPG, GIF"
             maxSizeMB={5}
             acceptedFileTypes={["image/png", "image/jpeg", "image/gif"]}
