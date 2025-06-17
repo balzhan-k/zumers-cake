@@ -15,13 +15,13 @@ interface EmailTemplateProps {
     allergies: string | null;
     cakeNote: string;
     specialRequests: string;
+    photo: string | null;
     nameSurname: string;
     phone: string | null;
     deliveryDate: string | null;
   };
 }
 
-// Helper functions
 const formatPhone = (phone: string | null) => {
   if (!phone) return "";
   // Remove all non-digits and format as Turkish phone number
@@ -357,6 +357,38 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
                 </td>
               </tr>
             )}
+
+            {data.photo && (
+              <tr style={{ backgroundColor: "#fafafa" }}>
+                <td
+                  style={{
+                    padding: "12px 0",
+                    fontWeight: "bold",
+                    color: "#333",
+                    borderBottom: "1px solid #f0f0f0",
+                  }}
+                >
+                  Yüklenen Fotoğraf:
+                </td>
+                <td
+                  style={{
+                    padding: "12px 0",
+                    color: "#555",
+                    borderBottom: "1px solid #f0f0f0",
+                  }}
+                >
+                  <img
+                    src={data.photo}
+                    alt="Uploaded Photo"
+                    style={{
+                      maxWidth: "100%",
+                      height: "auto",
+                      borderRadius: "8px",
+                    }}
+                  />
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>
@@ -477,8 +509,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
             fontSize: "14px",
           }}
         >
-          Bu sipariş otomatik olarak oluşturulmuştur. Herhangi bir sorunuz için
-          lütfen müşteriyle iletişime geçin.
+          Yeni bir pasta siparişi alındı. Hayırlı olsun. Bol kazançların olsun.
         </p>
       </div>
     </div>

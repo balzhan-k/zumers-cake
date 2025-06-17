@@ -25,7 +25,7 @@ interface OrderFormData {
   colors: string | null; //renkler +
   otherColorsDetails: string | null; //diğer detayları+
   allergies: string | null; //alergenler+
-  photo: File | null; //fotoğraf
+  photo: string | null; //fotoğraf
   cakeNote: string; //pasta üzerine yazılacak not
   specialRequests: string; //mesaj+
   nameSurname: string; //ad soyad
@@ -117,16 +117,16 @@ export default function OrderPage() {
     }));
   };
 
-  const handlePhotoChange = (file: File | null) => {
+  const handlePhotoChange = (url: string | null) => {
     setFormData((prevData) => ({
       ...prevData,
-      photo: file,
+      photo: url,
     }));
   };
 
   const handleSubmit = async () => {
     try {
-      const response = await fetch("/api/send/route", {
+      const response = await fetch("/api/send", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -321,10 +321,10 @@ export default function OrderPage() {
             7. Özel tema veya konsept örneği:
           </TextElement>
           <PhotoUploadField
-            value={formData.photo ? URL.createObjectURL(formData.photo) : null}
-            onChange={handlePhotoChange as (url: string | null) => void}
+            value={formData.photo}
+            onChange={(url) => handlePhotoChange(url)}
             hintText="PNG, JPG, GIF"
-            maxSizeMB={5}
+            maxSizeMB={10}
             acceptedFileTypes={["image/png", "image/jpeg", "image/gif"]}
           />
         </section>

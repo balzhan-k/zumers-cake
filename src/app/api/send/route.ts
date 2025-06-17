@@ -18,6 +18,7 @@ interface OrderFormData {
   allergies: string | null;
   cakeNote: string;
   specialRequests: string;
+  photo: string | null;
   nameSurname: string;
   phone: string | null;
   deliveryDateAndTime: string | null;
@@ -38,7 +39,7 @@ Renkler: ${data.colors}${data.otherColorsDetails ? ` - ${data.otherColorsDetails
 ${data.allergies ? `Alerji Durumu: ${data.allergies}` : ""}
 ${data.cakeNote ? `Pasta Üzerine Not: "${data.cakeNote}"` : ""}
 ${data.specialRequests ? `Özel İstekler: ${data.specialRequests}` : ""}
-
+${data.photo ? `Fotoğraf: ${data.photo}` : ""}
 MÜŞTERİ BİLGİLERİ:
 ==================
 İsim Soyisim: ${data.nameSurname}
