@@ -4,21 +4,42 @@ import { EmailTemplate } from "@/components/email-template";
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
+interface OrderFormData {
+  occasion: string | null;
+  otherOccasionDetails: string | null;
+  servings: string | null;
+  otherServingsDetails: string | null;
+  cakeType: string | null;
+  otherCakeTypeDetails: string | null;
+  filling: string | null;
+  otherFillingDetails: string | null;
+  colors: string | null;
+  otherColorsDetails: string | null;
+  allergies: string | null;
+  photo: File | null;
+  cakeNote: string;
+  specialRequests: string;
+  nameSurname: string;
+  phone: string | null;
+  deliveryDate: Date | null;
+  deliveryTime: Date | null;
+}
+
 // Helper function to generate plain text version
-const generatePlainText = (data: any) => {
+const generatePlainText = (data: OrderFormData) => {
   return `
 YENI PASTA SİPARİŞİ
 
 SİPARİŞ DETAYLARI:
 ==================
-Özel Gün: ${data.occasion}${data.otherOccasionDetails ? ` - ${data.otherOccasionDetails}` : ''}
-Kişi Sayısı: ${data.servings}${data.otherServingsDetails ? ` - ${data.otherServingsDetails}` : ''}
-Pasta Türü: ${data.cakeType}${data.otherCakeTypeDetails ? ` - ${data.otherCakeTypeDetails}` : ''}
-İçerik & Kat Arası: ${data.filling}${data.otherFillingDetails ? ` - ${data.otherFillingDetails}` : ''}
-Renkler: ${data.colors}${data.otherColorsDetails ? ` - ${data.otherColorsDetails}` : ''}
-${data.allergies ? `Alerji Durumu: ${data.allergies}` : ''}
-${data.cakeNote ? `Pasta Üzerine Not: "${data.cakeNote}"` : ''}
-${data.specialRequests ? `Özel İstekler: ${data.specialRequests}` : ''}
+Özel Gün: ${data.occasion}${data.otherOccasionDetails ? ` - ${data.otherOccasionDetails}` : ""}
+Kişi Sayısı: ${data.servings}${data.otherServingsDetails ? ` - ${data.otherServingsDetails}` : ""}
+Pasta Türü: ${data.cakeType}${data.otherCakeTypeDetails ? ` - ${data.otherCakeTypeDetails}` : ""}
+İçerik & Kat Arası: ${data.filling}${data.otherFillingDetails ? ` - ${data.otherFillingDetails}` : ""}
+Renkler: ${data.colors}${data.otherColorsDetails ? ` - ${data.otherColorsDetails}` : ""}
+${data.allergies ? `Alerji Durumu: ${data.allergies}` : ""}
+${data.cakeNote ? `Pasta Üzerine Not: "${data.cakeNote}"` : ""}
+${data.specialRequests ? `Özel İstekler: ${data.specialRequests}` : ""}
 
 MÜŞTERİ BİLGİLERİ:
 ==================
@@ -32,7 +53,7 @@ Bu sipariş otomatik olarak oluşturulmuştur.
 
 export async function POST(req: NextRequest) {
   try {
-    const data = await req.json();
+    const data: OrderFormData = await req.json();
 
     if (!data) {
       return NextResponse.json(
@@ -41,11 +62,20 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    const { photo, deliveryTime, ...rest } = data;
+
     const result = await resend.emails.send({
       from: process.env.EMAIL_FROM!,
       to: process.env.EMAIL_TO!,
       subject: "Yeni Pasta Siparişi",
-      react: EmailTemplate({ data }),
+      react: EmailTemplate({
+        data: {
+          ...rest,
+          deliveryDate: data.deliveryDate
+            ? data.deliveryDate.toISOString()
+            : null,
+        },
+      }),
       text: generatePlainText(data), // Plain text version for better deliverability
     });
 

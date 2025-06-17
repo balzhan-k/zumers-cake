@@ -15,15 +15,15 @@ moment.locale("tr");
 
 interface OrderFormData {
   occasion: string | null; //hangi kutlama/ozel gun +
-  otherOccasionDetails?: string; //diğer kutlama detayları+
+  otherOccasionDetails: string | null; //diğer kutlama detayları+
   servings: string | null; //kaç kisilik +
-  otherServingsDetails?: string; //diğer detayları+
+  otherServingsDetails: string | null; //diğer detayları+
   cakeType: string | null; //pasta türü +
-  otherCakeTypeDetails?: string; //diğer detayları+
+  otherCakeTypeDetails: string | null; //diğer detayları+
   filling: string | null; //pasta icerigi, kat arasi malzemeler +
-  otherFillingDetails?: string; //diğer detayları+
+  otherFillingDetails: string | null; //diğer detayları+
   colors: string | null; //renkler +
-  otherColorsDetails?: string; //diğer detayları+
+  otherColorsDetails: string | null; //diğer detayları+
   allergies: string | null; //alergenler+
   photo: File | null; //fotoğraf
   cakeNote: string; //pasta üzerine yazılacak not
@@ -90,15 +90,15 @@ const allergiesOptions: SelectionOption[] = [
 export default function OrderPage() {
   const [formData, setFormData] = useState<OrderFormData>({
     occasion: null, // Initial value is null, as nothing is selected yet
-    otherOccasionDetails: "",
+    otherOccasionDetails: null,
     servings: null,
-    otherServingsDetails: "",
+    otherServingsDetails: null,
     cakeType: null,
-    otherCakeTypeDetails: "",
+    otherCakeTypeDetails: null,
     filling: null,
-    otherFillingDetails: "",
+    otherFillingDetails: null,
     colors: null,
-    otherColorsDetails: "",
+    otherColorsDetails: null,
     allergies: null,
     cakeNote: "",
     specialRequests: "",
