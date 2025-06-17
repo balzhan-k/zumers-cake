@@ -1,12 +1,6 @@
 import { getGalleryData } from "@/lib/galleryData";
 import GalleryDisplay from "@/components/gallery/GalleryDisplay";
 
-interface GalleryImage {
-  src: string;
-  title: string;
-  category: string;
-}
-
 export default function Gallery() {
   const { items, categories } = getGalleryData();
 
