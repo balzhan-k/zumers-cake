@@ -30,8 +30,7 @@ interface OrderFormData {
   specialRequests: string; //mesaj+
   nameSurname: string; //ad soyad
   phone: string | null; //telefon
-  deliveryDate: Date | null; //teslimat tarihi
-  deliveryTime: Date | null; //teslimat saati
+  deliveryDateAndTime: Date | null; //teslimat tarihi
 }
 
 interface SelectionOption {
@@ -105,8 +104,7 @@ export default function OrderPage() {
     photo: null,
     nameSurname: "",
     phone: "",
-    deliveryDate: null,
-    deliveryTime: null,
+    deliveryDateAndTime: null,
   });
 
   const handleFormChange = (
@@ -394,10 +392,10 @@ export default function OrderPage() {
           <TextElement variant="h3">13. Teslimat Tarihi ve Saati:</TextElement>
           <div className="flex flex-wrap gap-3 w-full">
             <Datetime
-              value={formData.deliveryDate || new Date()}
+              value={formData.deliveryDateAndTime || new Date()}
               onChange={(value) => {
                 if (moment.isMoment(value)) {
-                  handleFormChange("deliveryDate", value.toDate());
+                  handleFormChange("deliveryDateAndTime", value.toDate());
                 }
               }}
               dateFormat="DD-MM-YYYY"

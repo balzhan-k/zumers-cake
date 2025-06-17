@@ -16,13 +16,11 @@ interface OrderFormData {
   colors: string | null;
   otherColorsDetails: string | null;
   allergies: string | null;
-  photo: File | null;
   cakeNote: string;
   specialRequests: string;
   nameSurname: string;
   phone: string | null;
-  deliveryDate: Date | null;
-  deliveryTime: Date | null;
+  deliveryDateAndTime: string | null;
 }
 
 // Helper function to generate plain text version
@@ -45,7 +43,7 @@ MÜŞTERİ BİLGİLERİ:
 ==================
 İsim Soyisim: ${data.nameSurname}
 Telefon: ${data.phone}
-Teslimat Tarihi: ${data.deliveryDate}
+Teslimat Tarihi: ${data.deliveryDateAndTime}
 
 Bu sipariş otomatik olarak oluşturulmuştur.
   `.trim();
@@ -62,7 +60,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const { photo, deliveryTime, ...rest } = data;
+    const { deliveryDateAndTime, ...rest } = data;
 
     const result = await resend.emails.send({
       from: process.env.EMAIL_FROM!,
@@ -71,9 +69,7 @@ export async function POST(req: NextRequest) {
       react: EmailTemplate({
         data: {
           ...rest,
-          deliveryDate: data.deliveryDate
-            ? data.deliveryDate.toISOString()
-            : null,
+          deliveryDate: deliveryDateAndTime,
         },
       }),
       text: generatePlainText(data), // Plain text version for better deliverability
