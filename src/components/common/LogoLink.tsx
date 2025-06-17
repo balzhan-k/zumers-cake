@@ -14,7 +14,7 @@ export default function LogoLink({ className = "", onClick }: LogoLinkProps) {
       onClick={onClick}
     >
       <Image
-        src="/logo/logo.jpg"
+        src="/logo/logo.jpeg"
         alt="Zumer's Cake Logo"
         width={40}
         height={40}

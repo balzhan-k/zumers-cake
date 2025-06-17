@@ -300,7 +300,7 @@ export default function OrderPage() {
         {/* 6. Alerji veya özel diyet durumu var mı? */}
         <section className="mb-8">
           <TextElement variant="h3">
-            7. Alerji veya özel diyet durumu var mı?{" "}
+            6. Alerji veya özel diyet durumu var mı?{" "}
           </TextElement>
           <div className="flex flex-wrap gap-3">
             {allergiesOptions.map((option) => (
@@ -315,10 +315,10 @@ export default function OrderPage() {
           </div>
         </section>
 
-        {/* 8. Özel tema veya konsept örneği-fotoğraf */}
+        {/* 7. Özel tema veya konsept örneği */}
         <section className="mb-8">
           <TextElement variant="h3">
-            8. Özel tema veya konsept örneği:
+            7. Özel tema veya konsept örneği:
           </TextElement>
           <PhotoUploadField
             value={formData.photo}
@@ -329,9 +329,9 @@ export default function OrderPage() {
           />
         </section>
 
-        {/* 9. Pasta üzerine yazılacak not */}
+        {/* 8. Pasta üzerine yazılacak not */}
         <section className="mb-8">
-          <TextElement variant="h3">9.Pasta üzerine yazılacak not:</TextElement>
+          <TextElement variant="h3">8.Pasta üzerine yazılacak not:</TextElement>
           <div className="flex flex-wrap gap-3">
             <FormTextArea
               id="cakeNote"
@@ -344,10 +344,10 @@ export default function OrderPage() {
           </div>
         </section>
 
-        {/* 10. Pasta ile ilgili özel notlar veya istekler */}
+        {/* 9. Pasta ile ilgili özel notlar veya istekler */}
         <section className="mb-8">
           <TextElement variant="h3">
-            10. Pasta ile ilgili özel notlar veya istekler:
+            9. Pasta ile ilgili özel notlar veya istekler:
           </TextElement>
           <div className="flex flex-wrap gap-3">
             <FormTextArea
@@ -362,7 +362,7 @@ export default function OrderPage() {
         </section>
 
         <section className="mb-8">
-          <TextElement variant="h3">11. İsim Soyisim:</TextElement>
+          <TextElement variant="h3">10. İsim Soyisim:</TextElement>
 
           <FormTextInput
             id="nameSurname"
@@ -375,7 +375,7 @@ export default function OrderPage() {
         </section>
 
         <section className="mb-8">
-          <TextElement variant="h3">12. Telefon Numarası:</TextElement>
+          <TextElement variant="h3">11. Telefon Numarası:</TextElement>
 
           <FormTextInput
             id="phone"
@@ -387,9 +387,9 @@ export default function OrderPage() {
           />
         </section>
 
-        {/* 13. Teslimat Tarihi ve Saati */}
+        {/* 12. Teslimat Tarihi ve Saati */}
         <section className="mb-8">
-          <TextElement variant="h3">13. Teslimat Tarihi ve Saati:</TextElement>
+          <TextElement variant="h3">12. Teslimat Tarihi ve Saati:</TextElement>
           <div className="flex flex-wrap gap-3 w-full">
             <Datetime
               value={formData.deliveryDateAndTime || new Date()}

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 
 interface PhotoUploadFieldProps {
   value: File | null;
@@ -79,7 +80,9 @@ export default function PhotoUploadField({
 
           {previewUrl && value ? (
             <div className="relative w-full h-48 mb-4">
-              <img
+              <Image
+                width={100}
+                height={100}
                 src={previewUrl}
                 alt="Seçilen Fotoğraf Önizlemesi"
                 className="object-contain w-full h-full rounded-md"

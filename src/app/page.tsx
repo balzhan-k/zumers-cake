@@ -9,7 +9,7 @@ export default function Home() {
     <div className="min-h-screen bg-rose-50">
       <section className="relative h-screen flex items-center justify-center">
         <Image
-          src="/hero.jpg"
+          src="/hero.jpeg"
           alt="Hero Image"
           fill
           className="object-cover "
