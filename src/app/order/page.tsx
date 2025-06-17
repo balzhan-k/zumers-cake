@@ -10,6 +10,7 @@ import Datetime from "react-datetime";
 import "react-datetime/css/react-datetime.css";
 import moment from "moment";
 import "moment/locale/tr";
+import SuccessPopup from "@/components/common/SuccessPopup";
 
 moment.locale("tr");
 
@@ -107,6 +108,8 @@ export default function OrderPage() {
     deliveryDateAndTime: null,
   });
 
+  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+
   const handleFormChange = (
     field: keyof OrderFormData,
     value: string | null | Date // Keep Date for date/time pickers
@@ -136,7 +139,10 @@ export default function OrderPage() {
 
       const result = await response.json();
       if (result.success) {
-        alert("Sipariş başarıyla gönderildi!");
+        setShowSuccessPopup(true);
+        setTimeout(() => {
+          setShowSuccessPopup(false);
+        }, 3000);
       } else {
         alert("Gönderim sırasında hata oluştu.");
       }
@@ -145,6 +151,7 @@ export default function OrderPage() {
       alert("Bir hata oluştu.");
     }
   };
+
 
   return (
     <main className="px-4 py-8 bg-rose-50">
@@ -163,6 +170,7 @@ export default function OrderPage() {
                 onClick={(value) => handleFormChange("occasion", value)}
                 isSelected={formData.occasion === option.value}
                 text={option.text}
+                
               />
             ))}
           </div>
@@ -177,6 +185,7 @@ export default function OrderPage() {
               maxLength={100}
               label="Lütfen diğer özel günü belirtiniz:"
               id="otherOccasionInput"
+            
             />
           )}
         </section>
@@ -422,6 +431,10 @@ export default function OrderPage() {
           Sipariş Oluştur
         </button>
       </div>
+      <SuccessPopup
+        message="Siparişiniz başarıyla gönderildi!"
+        isVisible={showSuccessPopup}
+      />
     </main>
   );
 }

@@ -46,7 +46,6 @@ export default function FormTextInput({
   return (
     <div className="mb-4">
       {" "}
-   
       <label
         htmlFor={id}
         className="block text-sm font-medium text-gray-700 mb-1"
@@ -54,15 +53,14 @@ export default function FormTextInput({
         {label}
       </label>
       <input
-        type={type} 
+        type={type}
         id={id}
         placeholder={placeholder}
         value={value}
-        onChange={(e) => onChange(e.target.value)} 
+        onChange={(e) => onChange(e.target.value)}
         maxLength={maxLength}
-        className={`${baseInputStyles} ${errorStyles} ${className || ""}`} 
+        className={`${baseInputStyles} ${errorStyles} ${className || ""}`}
       />
-
       {hintText && !error && (
         <p className="mt-1 text-xs text-gray-500">{hintText}</p>
       )}
