@@ -47,7 +47,7 @@ export default function Footer() {
                 <p>
                   İzmir, Türkiye
                   <br />
-                  Gaziemir, 35000
+                  Karabağlar-Basınsitesi, 35150
                 </p>
               </div>
             </div>
