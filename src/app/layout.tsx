@@ -33,7 +33,7 @@ export default function RootLayout({
       lang="tr"
       className={`${inter.variable} ${dancingScript.variable} ${inter.className}`}
     >
-      <body className="antialiased font-inter font-regular text-slate-700">
+      <body className="antialiased font-inter font-regular text-slate-700 bg-rose-50">
         <div className="flex flex-col min-h-screen">
           <Header />
           <main className="flex-grow">{children}</main>

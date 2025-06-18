@@ -5,7 +5,7 @@ export default function Gallery() {
   const { items, categories } = getGalleryData();
 
   return (
-    <main className="container mx-auto px-4 py-8 bg-rose-50">
+    <main className="container mx-auto px-4 py-8">
       <h1 className="text-4xl font-bold mb-6 text-center text-rose-700">
         Lezzetlerimizin Galerisi
       </h1>
