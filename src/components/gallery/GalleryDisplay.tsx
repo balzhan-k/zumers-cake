@@ -1,9 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { GalleryItem } from "@/lib/galleryData";
-import CustomButton from "../common/CustomButton";
-
 import Image from "next/image";
+import ImageModal from "./ImageModal";
+import CustomButton from "../common/CustomButton";
 import TextElement from "../common/TextElement";
 
 interface GalleryDisplayProps {
@@ -16,6 +16,8 @@ export default function GalleryDisplay({
   categories,
 }: GalleryDisplayProps) {
   const [activeCategory, setActiveCategory] = useState("Doğum Günü");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<GalleryItem | null>(null);
 
   const filteredItems = galleryItems.filter((item) => {
     if (!activeCategory) {
@@ -23,6 +25,23 @@ export default function GalleryDisplay({
     }
     return item.category === activeCategory;
   });
+
+  const currentIndex = selectedImage
+    ? filteredItems.findIndex((item) => item.src === selectedImage.src)
+    : -1;
+  const hasPrev = currentIndex > 0;
+  const hasNext = currentIndex < filteredItems.length - 1;
+
+  const handleNext = () => {
+    if (hasNext) {
+      setSelectedImage(filteredItems[currentIndex + 1]);
+    }
+  };
+  const handlePrev = () => {
+    if (hasPrev) {
+      setSelectedImage(filteredItems[currentIndex - 1]);
+    }
+  };
 
   return (
     <>
@@ -38,11 +57,15 @@ export default function GalleryDisplay({
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 cursor-pointer">
         {filteredItems.map((item) => (
           <div
             key={item.src}
-            className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300 ease-in-out"
+            onClick={() => {
+              setIsModalOpen(true);
+              setSelectedImage(item);
+            }}
+            className="bg-stone-50 p-4 rounded-lg shadow-md flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300 ease-in-out"
           >
             <div className="relative w-full h-96 mb-4 rounded-md overflow-hidden">
               <Image
@@ -65,6 +88,20 @@ export default function GalleryDisplay({
         <p className="text-center text-gray-500 mt-10 text-lg">
           No items found for this category.
         </p>
+      )}
+      {isModalOpen && selectedImage && (
+        <ImageModal
+          src={selectedImage.src}
+          alt={selectedImage.title}
+          onClose={() => {
+            setIsModalOpen(false);
+            setSelectedImage(null);
+          }}
+          onNext={handleNext}
+          onPrev={handlePrev}
+          hasNext={hasNext}
+          hasPrev={hasPrev}
+        />
       )}
     </>
   );

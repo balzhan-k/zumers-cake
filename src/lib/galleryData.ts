@@ -38,7 +38,6 @@ export function getGalleryData(): {
             .replace(/\.(jpeg|jpg|png|gif|webp)$/i, "")
             .trim();
 
-          // Remove "WhatsApp Image YYYY-MM-DD at HH.MM.SS (X)" type prefixes
           baseTitle = baseTitle
             .replace(
               /^WhatsApp Image \d{4}-\d{2}-\d{2} at \d{2}\.\d{2}\.\d{2}( \(\d+\))?/g,
@@ -46,12 +45,9 @@ export function getGalleryData(): {
             )
             .trim();
 
-          // Replace other unwanted characters like parentheses, hyphens, underscores with a space
-          // Be careful with dots, as they might be part of the name (e.g., "Dr. Who")
-          // For now, let's target specific common unwanted characters.
-          baseTitle = baseTitle.replace(/[\(\)\[\]_\-]/g, " ").trim(); // Replaced '.' with '[]' for safer character set
+          
+          baseTitle = baseTitle.replace(/[\(\)\[\]_\-]/g, " ").trim(); 
 
-          // Ensure single spaces between words
           baseTitle = baseTitle.replace(/\s+/g, " ").trim();
 
           galleryItems.push({
