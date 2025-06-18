@@ -1,6 +1,13 @@
 import fs from "fs";
 import path from "path";
 
+const PREFERRED_CATEGORY_ORDER = [
+  "Doğum Günü",
+  "Özel Gün",
+  "Cupcake & Cake Pop",
+  "Kurabiyeler",
+];
+
 export interface GalleryItem {
   src: string;
   title: string;
@@ -45,8 +52,7 @@ export function getGalleryData(): {
             )
             .trim();
 
-          
-          baseTitle = baseTitle.replace(/[\(\)\[\]_\-]/g, " ").trim(); 
+          baseTitle = baseTitle.replace(/[\(\)\[\]_\-]/g, " ").trim();
 
           baseTitle = baseTitle.replace(/\s+/g, " ").trim();
 
@@ -66,7 +72,28 @@ export function getGalleryData(): {
 
   return {
     items: galleryItems,
-    categories: Array.from(categoriesSet).sort(),
+    categories: Array.from(categoriesSet).sort((a, b) => {
+      const indexA = PREFERRED_CATEGORY_ORDER.indexOf(a);
+      const indexB = PREFERRED_CATEGORY_ORDER.indexOf(b);
+
+      // If both are in the preferred order, sort by their index
+      if (indexA !== -1 && indexB !== -1) {
+        // (3)
+        return indexA - indexB; // (3)
+      }
+      // If only A is in preferred order, A comes first
+      if (indexA !== -1) {
+        // (4)
+        return -1; // (4)
+      }
+      // If only B is in preferred order, B comes first
+      if (indexB !== -1) {
+        // (5)
+        return 1; // (5)
+      }
+      // If neither is in preferred order, sort alphabetically (fallback)
+      return a.localeCompare(b); // (6)
+    }),
   };
 }
 
