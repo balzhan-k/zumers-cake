@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import CustomFormButton from "@/components/common/CustomFormButton";
+import CustomFormButton from "@/components/common/CustomButton";
 import TextElement from "@/components/common/TextElement";
 import FormTextInput from "@/components/common/FormTextInput";
 import PhotoUploadField from "@/components/common/PhotoUploadField";
