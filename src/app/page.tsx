@@ -27,7 +27,7 @@ export default function Home() {
             geçirebiliriz.
           </TextElement>
 
-          <div className="flex justify-center gap-4">
+          <div className="flex justify-center gap-4 pt-4">
             <CustomLink href="/gallery" variant="button">
               Galeri
             </CustomLink>

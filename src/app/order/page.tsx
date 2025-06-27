@@ -89,7 +89,7 @@ const allergiesOptions: SelectionOption[] = [
 
 export default function OrderPage() {
   const [formData, setFormData] = useState<OrderFormData>({
-    occasion: null, 
+    occasion: null,
     otherOccasionDetails: null,
     servings: null,
     otherServingsDetails: null,
@@ -154,11 +154,11 @@ export default function OrderPage() {
 
   return (
     <main className="px-4 py-8 bg-rose-50 pb-20">
-      <TextElement variant="h1" className="text-center">
+      <TextElement variant="h1" className="text-center pb-4">
         Pasta Sipariş Formu
       </TextElement>
       {/* 1. Özel Gün */}
-      <div className="mx-auto md:max-w-3xl p-8 border border-rose-200 rounded-2xl">
+      <div className="mx-auto md:max-w-3xl p-8 border border-rose-200 rounded-2xl shadow-md bg-stone-50">
         <section className="mb-8">
           <TextElement variant="h3">1. Özel Gün:</TextElement>
           <div className="flex flex-wrap gap-3 mb-4">
