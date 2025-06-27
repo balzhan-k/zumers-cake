@@ -6,7 +6,7 @@ import TextElement from "@/components/common/TextElement";
 
 export default function Home() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen  pb-20">
       <section className="relative h-screen flex items-center justify-center">
         <Image
           src="/hero.jpeg"

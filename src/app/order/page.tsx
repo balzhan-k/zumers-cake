@@ -89,7 +89,7 @@ const allergiesOptions: SelectionOption[] = [
 
 export default function OrderPage() {
   const [formData, setFormData] = useState<OrderFormData>({
-    occasion: null, // Initial value is null, as nothing is selected yet
+    occasion: null, 
     otherOccasionDetails: null,
     servings: null,
     otherServingsDetails: null,
@@ -152,14 +152,13 @@ export default function OrderPage() {
     }
   };
 
-
   return (
-    <main className="px-4 py-8 bg-rose-50">
+    <main className="px-4 py-8 bg-rose-50 pb-20">
       <TextElement variant="h1" className="text-center">
         Pasta Sipariş Formu
       </TextElement>
       {/* 1. Özel Gün */}
-      <div className="mx-auto md:max-w-3xl p-4">
+      <div className="mx-auto md:max-w-3xl p-8 border border-rose-200 rounded-2xl">
         <section className="mb-8">
           <TextElement variant="h3">1. Özel Gün:</TextElement>
           <div className="flex flex-wrap gap-3 mb-4">
@@ -170,7 +169,6 @@ export default function OrderPage() {
                 onClick={(value) => handleFormChange("occasion", value)}
                 isSelected={formData.occasion === option.value}
                 text={option.text}
-                
               />
             ))}
           </div>
@@ -185,7 +183,6 @@ export default function OrderPage() {
               maxLength={100}
               label="Lütfen diğer özel günü belirtiniz:"
               id="otherOccasionInput"
-            
             />
           )}
         </section>
