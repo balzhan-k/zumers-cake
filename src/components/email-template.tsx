@@ -1,4 +1,5 @@
 import * as React from "react";
+import Image from "next/image";
 
 interface EmailTemplateProps {
   data: {
@@ -377,14 +378,17 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
                     borderBottom: "1px solid #f0f0f0",
                   }}
                 >
-                  <img
+                  <Image
                     src={data.photo}
                     alt="Uploaded Photo"
+                    width={600}
+                    height={400}
                     style={{
                       maxWidth: "100%",
                       height: "auto",
                       borderRadius: "8px",
                     }}
+                    unoptimized
                   />
                 </td>
               </tr>
