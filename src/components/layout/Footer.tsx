@@ -2,7 +2,7 @@ import LogoLink from "../common/LogoLink";
 
 export default function Footer() {
   return (
-    <footer className="hidden sm:block border-t border-foreground/10 py-8 bg-stone-50">
+    <footer className="hidden md:block border-t border-foreground/10 py-8 bg-stone-50">
       <div className="flex flex-col items-center gap-4">
         <LogoLink />
         <p className="text-sm">
