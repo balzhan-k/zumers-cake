@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
+    "@hookform/resolvers": "^5.1.1",
     "@vercel/blob": "^1.1.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.16.0",
@@ -19,8 +20,10 @@
     "react-datetime": "^3.3.1",
     "react-datetime-picker": "^6.0.1",
     "react-dom": "^18",
+    "react-hook-form": "^7.59.0",
     "react-icons": "^5.5.0",
-    "resend": "^4.6.0"
+    "resend": "^4.6.0",
+    "zod": "^3.25.72"
   },
   "devDependencies": {
     "@types/node": "^20",
