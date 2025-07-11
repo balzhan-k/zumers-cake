@@ -1,36 +1,22 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Zumers Cake
 
-## Getting Started
+This is a Next.js project for Zumers Cake.
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Project Description and Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Zumers Cake is a Next.js application designed to showcase custom cakes and allow users to place orders.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Here's a breakdown of its features:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Homepage (`/`)**: This is the landing page featuring a hero image, a catchy slogan, and a brief introduction to Zumers Cake. It includes calls to action to explore the "Gallery" and "Create Order" sections. There's also a "Our Story" section with a link to the "About" page.
 
-## Learn More
+- **Gallery (`/gallery`)**: This section displays various cake designs, likely categorized. Users can browse through different types of cakes (e.g., "Cupcake & Cake Pop", "Birthday", "Cookies", "Special Day") to get inspiration.
 
-To learn more about Next.js, take a look at the following resources:
+- **Order (`/order`)**: This feature allows users to create custom cake orders. This likely includes options for selecting cake type, size, flavors, and potentially uploading reference photos.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **About (`/about`)**: This page provides more information about the Zumers Cake story, philosophy, and background.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Contact (`/contact`)**: This section likely provides a way for users to get in touch with Zumers Cake, perhaps through a contact form.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **API Endpoints**: The project includes API routes for `send` and `upload`. The `upload` endpoint handles photo uploads, likely for custom order requests, and the `send` endpoint could be for submitting order details or contact form submissions.
