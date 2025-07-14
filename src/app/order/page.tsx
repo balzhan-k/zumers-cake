@@ -154,7 +154,7 @@ export default function OrderPage() {
 
   return (
     <main className="px-4 py-8 bg-rose-50 pb-20">
-      <TextElement variant="h1" className="text-center pb-4">
+      <TextElement variant="h2" className="text-center pb-4">
         Pasta Sipariş Formu
       </TextElement>
       {/* 1. Özel Gün */}
