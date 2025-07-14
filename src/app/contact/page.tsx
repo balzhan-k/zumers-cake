@@ -64,10 +64,8 @@ const contactDetails: ContactItem[] = [
 
 export default function Contact() {
   return (
-    <main className="md:max-w-3xl flex flex-col mx-auto px-4 py-8 pb-20">
-      <TextElement variant="h1" >
-        Bizimle iletişime geçin
-      </TextElement>
+    <main className="lg:max-w-3xl md:max-w-2xl flex flex-col mx-auto px-4 py-8 pb-20">
+      <TextElement variant="h2">Bizimle iletişime geçin</TextElement>
       <TextElement variant="p">
         Her türlü soru, öneri ya da özel talebiniz için bizimle iletişime
         geçebilirsiniz. Size en kısa sürede geri dönüş yapacağız. İlginiz ve
@@ -87,12 +85,7 @@ export default function Contact() {
               <item.icon className="h-6 w-6" />
             </div>
             <div>
-              <TextElement
-                variant="h3"
-                className="text-lg font-semibold text-gray-800"
-              >
-                {item.title}
-              </TextElement>
+              <TextElement variant="h3">{item.title}</TextElement>
               <p className="text-rose-500 text-sm">{item.description}</p>
             </div>
           </a>

@@ -8,7 +8,7 @@ interface TextElementProps {
   className?: string;
 }
 
-type TextElementVariant = "h1" | "h3" | "p";
+type TextElementVariant = "h2" | "h3" | "p";
 
 export default function TextElement({
   id,
@@ -17,9 +17,9 @@ export default function TextElement({
   className,
 }: TextElementProps) {
   const baseStyles: Record<TextElementVariant, string> = {
-    h1: "text-xl font-bold md:text-center",
-    h3: "text-md font-bold",
-    p: "text-sm md:text-md lg:text-lg font-regular",
+    h2: "text-xl md:text-2xl font-bold ",
+    h3: "text-md md:text-lg font-bold",
+    p: "text-sm md:text-md py-2 lg:text-lg font-regular",
   };
 
   const Tag = variant;

@@ -6,7 +6,7 @@ import TextElement from "@/components/common/TextElement";
 
 export default function Home() {
   return (
-    <div className="min-h-screen  pb-20">
+    <div className="min-h-screen pb-12 md:pb-0">
       <section className="relative h-screen flex items-center justify-center">
         <Image
           src="/images/hero.jpg"
@@ -39,9 +39,12 @@ export default function Home() {
       </section>
       <section className="container mx-auto px-4">
         <div className="flex flex-col flex-start p-8 w-full">
-          <h2 className="text-xl lg:text-2xl font-bold mb-4 text-start">
+          <TextElement
+            variant="h2"
+            className="text-start"
+          >
             Hikayemiz
-          </h2>
+          </TextElement>
           <TextElement variant="p">
             Zümer&apos;s Cake olarak, lezzetli pastalar aracılığıyla neşe dolu
             anlar yaratmaya, insanların hayatına tatlı bir dokunuş katmaya
@@ -51,7 +54,7 @@ export default function Home() {
           </TextElement>
           <Link
             href="/about"
-            className="text-sm md:text-lg mb-8 font-regular text-rose-500 flex items-center gap-2 hover:text-rose-800 transition-colors"
+            className="text-sm md:text-lg mb-8 md:mb-2 font-regular text-rose-500 flex items-center gap-2 hover:text-rose-800 transition-colors"
           >
             Daha Fazla Bilgi Edinin <ArrowRightIcon className="w-4 h-4" />
           </Link>
