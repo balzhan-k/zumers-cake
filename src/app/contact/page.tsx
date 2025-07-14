@@ -7,7 +7,6 @@ import {
 } from "react-icons/fa";
 import TextElement from "@/components/common/TextElement";
 
-
 interface ContactItem {
   id: string;
   title: string; // New field for the title like "Call us"
