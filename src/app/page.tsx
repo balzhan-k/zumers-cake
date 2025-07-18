@@ -39,10 +39,7 @@ export default function Home() {
       </section>
       <section className="container mx-auto px-4">
         <div className="flex flex-col flex-start p-8 w-full">
-          <TextElement
-            variant="h2"
-            className="text-start"
-          >
+          <TextElement variant="h2" className="text-start">
             Hikayemiz
           </TextElement>
           <TextElement variant="p">
