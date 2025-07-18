@@ -12,6 +12,12 @@ import moment from "moment";
 import "moment/locale/tr";
 import SuccessPopup from "@/components/common/SuccessPopup";
 
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { orderFormSchema } from "@/lib/orderSchema";
+import { z } from "zod";
+import { set } from "zod/v4-mini";
+
 moment.locale("tr");
 
 interface OrderFormData {
@@ -88,55 +94,46 @@ const allergiesOptions: SelectionOption[] = [
 ];
 
 export default function OrderPage() {
-  const [formData, setFormData] = useState<OrderFormData>({
-    occasion: null,
-    otherOccasionDetails: null,
-    servings: null,
-    otherServingsDetails: null,
-    cakeType: null,
-    otherCakeTypeDetails: null,
-    filling: null,
-    otherFillingDetails: null,
-    colors: null,
-    otherColorsDetails: null,
-    allergies: null,
-    cakeNote: "",
-    specialRequests: "",
-    photo: null,
-    nameSurname: "",
-    phone: "",
-    deliveryDateAndTime: null,
-  });
-
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
-  const handleFormChange = (
-    field: keyof OrderFormData,
-    value: string | null | Date // Keep Date for date/time pickers
-  ) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      [field]: value,
-    }));
-  };
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<z.infer<typeof orderFormSchema>>({
+    resolver: zodResolver(orderFormSchema),
+    defaultValues: {
+      occasion: null,
+      otherOccasionDetails: null,
+      servings: null,
+      otherServingsDetails: null,
+      cakeType: null,
+      otherCakeTypeDetails: null,
+      filling: null,
+      otherFillingDetails: null,
+      colors: null,
+      otherColorsDetails: null,
+      allergies: null,
+      cakeNote: "",
+      specialRequests: "",
+      photo: null,
+      nameSurname: "",
+      phone: "",
+      deliveryDateAndTime: null,
+    },
+  });
 
-  const handlePhotoChange = (url: string | null) => {
-    setFormData((prevData) => ({
-      ...prevData,
-      photo: url,
-    }));
-  };
-
-  const handleSubmit = async () => {
+  const onSubmit = async (data: z.infer<typeof orderFormSchema>) => {
     try {
       const response = await fetch("/api/send", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(data),
       });
-
       const result = await response.json();
       if (result.success) {
         setShowSuccessPopup(true);
@@ -152,286 +149,339 @@ export default function OrderPage() {
     }
   };
 
+  // ...existing code...
   return (
     <main className="px-4 py-8 bg-rose-50 pb-20">
       <TextElement variant="h2" className="text-center pb-4">
         Pasta Sipariş Formu
       </TextElement>
-      {/* 1. Özel Gün */}
-      <div className="mx-auto md:max-w-3xl p-8 border border-rose-200 rounded-2xl shadow-md bg-stone-50">
-        <section className="mb-8">
-          <TextElement variant="h3">1. Özel Gün:</TextElement>
-          <div className="flex flex-wrap gap-3 mb-4">
-            {occasionOptions.map((option) => (
-              <CustomFormButton
-                key={option.value}
-                value={option.value}
-                onClick={(value) => handleFormChange("occasion", value)}
-                isSelected={formData.occasion === option.value}
-                text={option.text}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="mx-auto md:max-w-3xl p-8 border border-rose-200 rounded-2xl shadow-md bg-stone-50">
+          <section className="mb-8">
+            <TextElement variant="h3">1. Özel Gün:</TextElement>
+            <div className="flex flex-wrap gap-3 mb-4">
+              {occasionOptions.map((option) => (
+                <CustomFormButton
+                  key={option.value}
+                  value={option.value}
+                  onClick={() => setValue("occasion", option.value)}
+                  isSelected={watch("occasion") === option.value}
+                  text={option.text}
+                />
+              ))}
+            </div>
+            {watch("occasion") === "Other" && (
+              <FormTextInput
+                isVisible
+                value={watch("otherOccasionDetails") || ""}
+                onChange={(value) => setValue("otherOccasionDetails", value)}
+                placeholder="Örn: Mezuniyet Töreni"
+                maxLength={100}
+                label="Lütfen diğer özel günü belirtiniz:"
+                id="otherOccasionInput"
               />
-            ))}
-          </div>
-          {formData.occasion === "Other" && (
+            )}
+            {errors.otherOccasionDetails && (
+              <span className="text-red-500 text-sm">
+                {errors.otherOccasionDetails.message}
+              </span>
+            )}
+          </section>
+
+          {/* 2. Kaç Kişilik */}
+          <section className="mb-8">
+            <TextElement variant="h3">2. Kaç Kişilik:</TextElement>
+            <div className="flex flex-wrap gap-3 mb-4">
+              {servingsOptions.map((option) => (
+                <CustomFormButton
+                  key={option.value}
+                  value={option.value}
+                  onClick={() => setValue("servings", option.value)}
+                  isSelected={watch("servings") === option.value}
+                  text={option.text}
+                />
+              ))}
+            </div>
+            {watch("servings") === "Other" && (
+              <FormTextInput
+                isVisible
+                value={watch("otherServingsDetails") || ""}
+                onChange={(value) => setValue("otherServingsDetails", value)}
+                placeholder="Örn: 10 kişilik"
+                maxLength={100}
+                label="Lütfen diğer kişi sayısını belirtiniz:"
+                id="otherServingsInput"
+              />
+            )}
+            {errors.otherServingsDetails && (
+              <span className="text-red-500 text-sm">
+                {errors.otherServingsDetails.message}
+              </span>
+            )}
+          </section>
+
+          {/* 3. Pasta Türü */}
+          <section className="mb-8">
+            <TextElement variant="h3">3. Pasta Türü:</TextElement>
+            <div className="flex flex-wrap gap-3 mb-4">
+              {cakeTypeOptions.map((option) => (
+                <CustomFormButton
+                  key={option.value}
+                  value={option.value}
+                  onClick={() => setValue("cakeType", option.value)}
+                  isSelected={watch("cakeType") === option.value}
+                  text={option.text}
+                />
+              ))}
+            </div>
+            {watch("cakeType") === "Other" && (
+              <FormTextInput
+                isVisible
+                value={watch("otherCakeTypeDetails") || ""}
+                onChange={(value) => setValue("otherCakeTypeDetails", value)}
+                placeholder="Örn: Cheese Cake, Tiramisu"
+                maxLength={100}
+                label="Lütfen diğer pasta türünü belirtiniz:"
+                id="otherCakeTypeInput"
+              />
+            )}
+            {errors.otherCakeTypeDetails && (
+              <span className="text-red-500 text-sm">
+                {errors.otherCakeTypeDetails.message}
+              </span>
+            )}
+          </section>
+
+          {/* 4. Pasta İçeriği */}
+          <section className="mb-8">
+            <TextElement variant="h3">4. Pasta İçeriği:</TextElement>
+            <div className="flex flex-wrap gap-3 mb-4">
+              {fillingOptions.map((option) => (
+                <CustomFormButton
+                  key={option.value}
+                  value={option.value}
+                  onClick={() => setValue("filling", option.value)}
+                  isSelected={watch("filling") === option.value}
+                  text={option.text}
+                />
+              ))}
+            </div>
+            {watch("filling") === "Other" && (
+              <FormTextInput
+                isVisible
+                value={watch("otherFillingDetails") || ""}
+                onChange={(value) => setValue("otherFillingDetails", value)}
+                placeholder="Örn: Kremalı, Çikolatalı, Meyveli"
+                maxLength={100}
+                label="Lütfen diğer pasta içeriğini belirtiniz:"
+                id="otherFillingInput"
+              />
+            )}
+            {errors.otherFillingDetails && (
+              <span className="text-red-500 text-sm">
+                {errors.otherFillingDetails.message}
+              </span>
+            )}
+          </section>
+
+          {/* 5. Renk Tercihleri */}
+          <section className="mb-8">
+            <TextElement variant="h3">5. Renk Tercihleri:</TextElement>
+            <div className="flex flex-wrap gap-3 mb-4">
+              {colorsOptions.map((option) => (
+                <CustomFormButton
+                  key={option.value}
+                  value={option.value}
+                  onClick={() => setValue("colors", option.value)}
+                  isSelected={watch("colors") === option.value}
+                  text={option.text}
+                />
+              ))}
+            </div>
+            {watch("colors") === "Other" && (
+              <FormTextInput
+                isVisible={watch("colors") === "Other"}
+                value={watch("otherColorsDetails") || ""}
+                onChange={(value) => setValue("otherColorsDetails", value)}
+                placeholder="Örn: Kırmızı, Mavi, Yeşil"
+                maxLength={100}
+                label="Lütfen diğer renk tercihlerini belirtiniz:"
+                id="otherColorsInput"
+              />
+            )}
+            {errors.otherColorsDetails && (
+              <span className="text-red-500 text-sm">
+                {errors.otherColorsDetails.message}
+              </span>
+            )}
+          </section>
+
+          {/* 6. Alerji veya özel diyet durumu var mı? */}
+          <section className="mb-8">
+            <TextElement variant="h3">
+              6. Alerji veya özel diyet durumu var mı?{" "}
+            </TextElement>
+            <div className="flex flex-wrap gap-3">
+              {allergiesOptions.map((option) => (
+                <CustomFormButton
+                  key={option.value}
+                  value={option.value}
+                  onClick={() => setValue("allergies", option.value)}
+                  isSelected={watch("allergies") === option.value}
+                  text={option.text}
+                />
+              ))}
+              {errors.allergies && (
+                <span className="text-red-500 text-sm">
+                  {errors.allergies.message}
+                </span>
+              )}
+            </div>
+          </section>
+
+          {/* 7. Özel tema veya konsept örneği */}
+          <section className="mb-8">
+            <TextElement variant="h3">
+              7. Özel tema veya konsept örneği:
+            </TextElement>
+            <PhotoUploadField
+              value={watch("photo")}
+              onChange={(url) => setValue("photo", url)}
+              hintText="PNG, JPG, GIF"
+              maxSizeMB={10}
+              acceptedFileTypes={["image/png", "image/jpeg", "image/gif"]}
+            />
+            {errors.photo && (
+              <span className="text-red-500 text-sm">
+                {errors.photo.message}
+              </span>
+            )}
+          </section>
+
+          {/* 8. Pasta üzerine yazılacak not */}
+          <section className="mb-8">
+            <TextElement variant="h3">
+              8.Pasta üzerine yazılacak not:
+            </TextElement>
+            <div className="flex flex-wrap gap-3">
+              <FormTextArea
+                id="cakeNote"
+                placeholder="Örn: Ada 1 yaşında"
+                value={watch("cakeNote") || ""}
+                onChange={(value) => setValue("cakeNote", value)}
+                maxLength={100}
+                rows={5}
+              />
+              {errors.cakeNote && (
+                <span className="text-red-500 text-sm">
+                  {errors.cakeNote.message}
+                </span>
+              )}
+            </div>
+          </section>
+
+          {/* 9. Pasta ile ilgili özel notlar veya istekler */}
+          <section className="mb-8">
+            <TextElement variant="h3">
+              9. Pasta ile ilgili özel notlar veya istekler:
+            </TextElement>
+            <div className="flex flex-wrap gap-3">
+              <FormTextArea
+                id="specialRequests"
+                placeholder="Örn: Yeşil renk ağırlıklı olsun, özel şeker hamuru figürleri kullanılsın"
+                value={watch("specialRequests") || ""}
+                onChange={(value) => setValue("specialRequests", value)}
+                maxLength={500}
+                rows={6}
+              />
+              {errors.specialRequests && (
+                <span className="text-red-500 text-sm">
+                  {errors.specialRequests.message}
+                </span>
+              )}
+            </div>
+          </section>
+
+          <section className="mb-8">
+            <TextElement variant="h3">10. İsim Soyisim:</TextElement>
             <FormTextInput
-              isVisible={formData.occasion === "Other"}
-              value={formData.otherOccasionDetails || ""}
-              onChange={(value) =>
-                handleFormChange("otherOccasionDetails", value)
-              }
-              placeholder="Örn: Mezuniyet Töreni"
+              id="nameSurname"
+              placeholder="İsim Soyisim"
+              value={watch("nameSurname") || ""}
+              onChange={(value) => setValue("nameSurname", value)}
               maxLength={100}
-              label="Lütfen diğer özel günü belirtiniz:"
-              id="otherOccasionInput"
+              label="İsim Soyisim"
             />
-          )}
-        </section>
+            {errors.nameSurname && (
+              <span className="text-red-500 text-sm">
+                {errors.nameSurname.message}
+              </span>
+            )}
+          </section>
 
-        {/* 2. Kaç Kişilik */}
-        <section className="mb-8">
-          <TextElement variant="h3">2. Kaç Kişilik:</TextElement>
-          <div className="flex flex-wrap gap-3 mb-4">
-            {servingsOptions.map((option) => (
-              <CustomFormButton
-                key={option.value}
-                value={option.value}
-                onClick={(value) => handleFormChange("servings", value)}
-                isSelected={formData.servings === option.value}
-                text={option.text}
-              />
-            ))}
-          </div>
-          {formData.servings === "Other" && (
+          <section className="mb-8">
+            <TextElement variant="h3">11. Telefon Numarası:</TextElement>
             <FormTextInput
-              isVisible={formData.servings === "Other"}
-              value={formData.otherServingsDetails || ""}
-              onChange={(value) =>
-                handleFormChange("otherServingsDetails", value)
-              }
-              placeholder="Örn: 20 Kişilik"
-              maxLength={100}
-              label="Lütfen diğer kişi sayısını belirtiniz:"
-              id="otherServingsInput"
+              id="phone"
+              placeholder="0555 555 55 55"
+              value={watch("phone") || ""}
+              onChange={(value) => setValue("phone", value)}
+              maxLength={11}
+              label="Telefon Numarası"
             />
-          )}
-        </section>
+            {errors.phone && (
+              <span className="text-red-500 text-sm">
+                {errors.phone.message}
+              </span>
+            )}
+          </section>
 
-        {/* 3. Pasta Türü */}
-        <section className="mb-8">
-          <TextElement variant="h3">3. Pasta Türü:</TextElement>
-          <div className="flex flex-wrap gap-3 mb-4">
-            {cakeTypeOptions.map((option) => (
-              <CustomFormButton
-                key={option.value}
-                value={option.value}
-                onClick={(value) => handleFormChange("cakeType", value)}
-                isSelected={formData.cakeType === option.value}
-                text={option.text}
-              />
-            ))}
-          </div>
-          {formData.cakeType === "Other" && (
-            <FormTextInput
-              isVisible={formData.cakeType === "Other"}
-              value={formData.otherCakeTypeDetails || ""}
-              onChange={(value) =>
-                handleFormChange("otherCakeTypeDetails", value)
-              }
-              placeholder="Örn: Cheesecake, Pavlova, Tiramisu"
-              maxLength={100}
-              label="Lütfen diğer pasta türünü belirtiniz:"
-              id="otherCakeTypeInput"
-            />
-          )}
-        </section>
-
-        {/* 4. Pasta İçeriği */}
-        <section className="mb-8">
-          <TextElement variant="h3">4. Pasta İçeriği:</TextElement>
-          <div className="flex flex-wrap gap-3 mb-4">
-            {fillingOptions.map((option) => (
-              <CustomFormButton
-                key={option.value}
-                value={option.value}
-                onClick={(value) => handleFormChange("filling", value)}
-                isSelected={formData.filling === option.value}
-                text={option.text}
-              />
-            ))}
-          </div>
-          {formData.filling === "Other" && (
-            <FormTextInput
-              isVisible={formData.filling === "Other"}
-              value={formData.otherFillingDetails || ""}
-              onChange={(value) =>
-                handleFormChange("otherFillingDetails", value)
-              }
-              placeholder="Örn: Kremalı, Çikolatalı, Meyveli"
-              maxLength={100}
-              label="Lütfen diğer pasta içeriğini belirtiniz:"
-              id="otherFillingInput"
-            />
-          )}
-        </section>
-
-        {/* 5. Renk Tercihleri */}
-        <section className="mb-8">
-          <TextElement variant="h3">5. Renk Tercihleri:</TextElement>
-          <div className="flex flex-wrap gap-3 mb-4">
-            {colorsOptions.map((option) => (
-              <CustomFormButton
-                key={option.value}
-                value={option.value}
-                onClick={(value) => handleFormChange("colors", value)}
-                isSelected={formData.colors === option.value}
-                text={option.text}
-              />
-            ))}
-          </div>
-          {formData.colors === "Other" && (
-            <FormTextInput
-              isVisible={formData.colors === "Other"}
-              value={formData.otherColorsDetails || ""}
-              onChange={(value) =>
-                handleFormChange("otherColorsDetails", value)
-              }
-              placeholder="Örn: Kırmızı, Mavi, Yeşil"
-              maxLength={100}
-              label="Lütfen diğer renk tercihlerini belirtiniz:"
-              id="otherColorsInput"
-            />
-          )}
-        </section>
-
-        {/* 6. Alerji veya özel diyet durumu var mı? */}
-        <section className="mb-8">
-          <TextElement variant="h3">
-            6. Alerji veya özel diyet durumu var mı?{" "}
-          </TextElement>
-          <div className="flex flex-wrap gap-3">
-            {allergiesOptions.map((option) => (
-              <CustomFormButton
-                key={option.value}
-                value={option.value}
-                onClick={(value) => handleFormChange("allergies", value)}
-                isSelected={formData.allergies === option.value}
-                text={option.text}
-              />
-            ))}
-          </div>
-        </section>
-
-        {/* 7. Özel tema veya konsept örneği */}
-        <section className="mb-8">
-          <TextElement variant="h3">
-            7. Özel tema veya konsept örneği:
-          </TextElement>
-          <PhotoUploadField
-            value={formData.photo}
-            onChange={(url) => handlePhotoChange(url)}
-            hintText="PNG, JPG, GIF"
-            maxSizeMB={10}
-            acceptedFileTypes={["image/png", "image/jpeg", "image/gif"]}
-          />
-        </section>
-
-        {/* 8. Pasta üzerine yazılacak not */}
-        <section className="mb-8">
-          <TextElement variant="h3">8.Pasta üzerine yazılacak not:</TextElement>
-          <div className="flex flex-wrap gap-3">
-            <FormTextArea
-              id="cakeNote"
-              placeholder="Örn: Ada 1 yaşında"
-              value={formData.cakeNote}
-              onChange={(value) => handleFormChange("cakeNote", value)}
-              maxLength={100}
-              rows={5}
-            />
-          </div>
-        </section>
-
-        {/* 9. Pasta ile ilgili özel notlar veya istekler */}
-        <section className="mb-8">
-          <TextElement variant="h3">
-            9. Pasta ile ilgili özel notlar veya istekler:
-          </TextElement>
-          <div className="flex flex-wrap gap-3">
-            <FormTextArea
-              id="specialRequests"
-              placeholder="Örn: Yeşil renk ağırlıklı olsun, özel şeker hamuru figürleri kullanılsın"
-              value={formData.specialRequests}
-              onChange={(value) => handleFormChange("specialRequests", value)}
-              maxLength={500}
-              rows={6}
-            />
-          </div>
-        </section>
-
-        <section className="mb-8">
-          <TextElement variant="h3">10. İsim Soyisim:</TextElement>
-
-          <FormTextInput
-            id="nameSurname"
-            placeholder="İsim Soyisim"
-            value={formData.nameSurname}
-            onChange={(value) => handleFormChange("nameSurname", value)}
-            maxLength={100}
-            label="İsim Soyisim"
-          />
-        </section>
-
-        <section className="mb-8">
-          <TextElement variant="h3">11. Telefon Numarası:</TextElement>
-
-          <FormTextInput
-            id="phone"
-            placeholder="0555 555 55 55"
-            value={formData.phone || ""}
-            onChange={(value) => handleFormChange("phone", value)}
-            maxLength={11}
-            label="Telefon Numarası"
-          />
-        </section>
-
-        {/* 12. Teslimat Tarihi ve Saati */}
-        <section className="mb-8">
-          <TextElement variant="h3">12. Teslimat Tarihi ve Saati:</TextElement>
-          <div className="flex flex-wrap gap-3 w-full">
-            <Datetime
-              value={formData.deliveryDateAndTime || new Date()}
-              onChange={(value) => {
-                if (moment.isMoment(value)) {
-                  handleFormChange("deliveryDateAndTime", value.toDate());
+          {/* 12. Teslimat Tarihi ve Saati */}
+          <section className="mb-8">
+            <TextElement variant="h3">
+              12. Teslimat Tarihi ve Saati:
+            </TextElement>
+            <div className="flex flex-wrap gap-3 w-full">
+              <Datetime
+                value={watch("deliveryDateAndTime") || new Date()}
+                onChange={(value) => {
+                  if (moment.isMoment(value)) {
+                    setValue("deliveryDateAndTime", value.toDate());
+                  }
+                }}
+                dateFormat="DD-MM-YYYY"
+                timeFormat="HH:mm"
+                locale="tr"
+                isValidDate={(current) =>
+                  current.isAfter(moment().subtract(1, "day"))
                 }
-              }}
-              dateFormat="DD-MM-YYYY"
-              timeFormat="HH:mm"
-              locale="tr"
-              isValidDate={(current) =>
-                current.isAfter(moment().subtract(1, "day"))
-              }
-              inputProps={{
-                placeholder: "DD-MM-YYYY HH:mm",
-                className:
-                  "p-3 border rounded-lg w-full text-sm focus:ring-rose-500 focus:border-rose-500 shadow-sm focus:outline-none",
-              }}
-              className="w-full"
-            />
-          </div>
-        </section>
+                inputProps={{
+                  placeholder: "DD-MM-YYYY HH:mm",
+                  className:
+                    "p-3 border rounded-lg w-full text-sm focus:ring-rose-500 focus:border-rose-500 shadow-sm focus:outline-none",
+                }}
+                className="w-full"
+              />
+              {errors.deliveryDateAndTime && (
+                <span className="text-red-500 text-sm">
+                  {errors.deliveryDateAndTime.message}
+                </span>
+              )}
+            </div>
+          </section>
 
-        <button
-          type="submit"
-          onClick={handleSubmit}
-          className="w-full py-3 bg-rose-600 text-white font-semibold rounded-md hover:bg-rose-700 transition-colors"
-        >
-          Sipariş Oluştur
-        </button>
-      </div>
-      <SuccessPopup
-        message="Siparişiniz başarıyla gönderildi!"
-        isVisible={showSuccessPopup}
-      />
+          <button
+            type="submit"
+            className="w-full py-3 bg-rose-600 text-white font-semibold rounded-md hover:bg-rose-700 transition-colors"
+          >
+            Sipariş Oluştur
+          </button>
+        </div>
+        <SuccessPopup
+          message="Siparişiniz başarıyla gönderildi!"
+          isVisible={showSuccessPopup}
+        />
+      </form>
     </main>
   );
 }

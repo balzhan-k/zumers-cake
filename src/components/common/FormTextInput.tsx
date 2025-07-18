@@ -6,8 +6,8 @@ interface FormTextInputProps {
   label: string;
   id: string;
   placeholder?: string;
-  value: string;
-  onChange: (value: string) => void;
+  value?: string;
+  onChange?: (value: string) => void;
   maxLength?: number;
   hintText?: string;
   className?: string;
@@ -15,6 +15,8 @@ interface FormTextInputProps {
   isClicked?: boolean;
   type?: "text" | "email" | "tel" | "number" | "password";
   isVisible?: boolean;
+  name?: string;
+  ref?: React.Ref<any>;
 }
 
 export default function FormTextInput({
@@ -30,14 +32,13 @@ export default function FormTextInput({
   isClicked,
   type = "text",
   isVisible = true,
+  name,
+  ref,
 }: FormTextInputProps) {
-  if (!isVisible) {
-    return null;
-  }
+  if (!isVisible) return null;
 
   const baseInputStyles =
     "p-3 border rounded-lg w-full text-sm focus:ring-rose-500 focus:border-rose-500 shadow-sm focus:outline-none";
-
   const errorStyles =
     error && isClicked
       ? "border-red-500 focus:border-red-500"
@@ -45,19 +46,17 @@ export default function FormTextInput({
 
   return (
     <div className="mb-4">
-      {" "}
-      <label
-        htmlFor={id}
-        className="block text-sm font-medium text-gray-700 mb-1"
-      >
+      <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-1">
         {label}
       </label>
       <input
         type={type}
         id={id}
+        name={name}
+        ref={ref}
         placeholder={placeholder}
         value={value}
-        onChange={(e) => onChange(e.target.value)}
+        onChange={onChange ? (e) => onChange(e.target.value) : undefined}
         maxLength={maxLength}
         className={`${baseInputStyles} ${errorStyles} ${className || ""}`}
       />
