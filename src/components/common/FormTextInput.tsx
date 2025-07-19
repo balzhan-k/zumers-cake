@@ -7,7 +7,7 @@ interface FormTextInputProps {
   id: string;
   placeholder?: string;
   value?: string;
-  onChange?: (value: string) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   maxLength?: number;
   hintText?: string;
   className?: string;
@@ -46,7 +46,10 @@ export default function FormTextInput({
 
   return (
     <div className="mb-4">
-      <label htmlFor={id} className="block text-sm font-medium text-gray-700 mb-1">
+      <label
+        htmlFor={id}
+        className="block text-sm font-medium text-gray-700 mb-1"
+      >
         {label}
       </label>
       <input
@@ -56,7 +59,7 @@ export default function FormTextInput({
         ref={ref}
         placeholder={placeholder}
         value={value}
-        onChange={onChange ? (e) => onChange(e.target.value) : undefined}
+        onChange={onChange}
         maxLength={maxLength}
         className={`${baseInputStyles} ${errorStyles} ${className || ""}`}
       />

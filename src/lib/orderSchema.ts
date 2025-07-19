@@ -9,35 +9,49 @@ const otherFields = [
 ];
 
 const orderFormShape = {
-  occasion: z.string().nullable(),
-  otherOccasionDetails: z.string().nullable(),
-  servings: z.string().nullable(),
-  otherServingsDetails: z.string().nullable(),
-  cakeType: z.string().nullable(),
-  otherCakeTypeDetails: z.string().nullable(),
-  filling: z.string().nullable(),
-  otherFillingDetails: z.string().nullable(),
-  colors: z.string().nullable(),
-  otherColorsDetails: z.string().nullable(),
-  allergies: z.string().nullable(),
+  occasion: z.string().nonempty("Lütfen bir seçim yapın."),
+  otherOccasionDetails: z.string(), // Bu alan zaten refine-правилом управляется
+  servings: z.string().nonempty("Lütfen bir seçim yapın."),
+  otherServingsDetails: z.string(), // Этот поле уже управляется правилом refine
+  cakeType: z.string().nonempty("Lütfen bir seçim yapın."),
+  otherCakeTypeDetails: z.string(), // Этот поле уже управляется правилом refine
+  filling: z.array(z.string()), // ИЗМЕНЕНИЕ ЗДЕСЬ: Убрали .nonempty() из самого определения
+  otherFillingDetails: z.string(), // Этот поле уже управляется правилом refine
+  colors: z.string().nonempty("Lütfen bir seçim yapın."),
+  otherColorsDetails: z.string(), // Этот поле уже управляется правилом refine
+  allergies: z.string().nonempty("Lütfen bir seçim yapın."),
   photo: z.string().nullable(),
-  cakeNote: z.string(),
-  specialRequests: z.string(),
-  nameSurname: z.string(),
-  phone: z.string().nullable(),
-  deliveryDateAndTime: z.date().nullable(),
+  cakeNote: z.string().nonempty("Doldurulması zorunlu alan"),
+  specialRequests: z.string().nonempty("Doldurulması zorunlu alan"),
+  nameSurname: z.string().nonempty("Doldurulması zorunlu alan"),
+  phone: z.string().nonempty("Doldurulması zorunlu alan"),
+  deliveryDateAndTime: z.date(),
 };
 
-export const orderFormSchema = z.object(orderFormShape).refine(
-  (data: z.infer<z.ZodObject<typeof orderFormShape>>) =>
-    otherFields.every(
-      ([main, other]) =>
-        data[main as keyof typeof data] !== "Other" ||
-        (data[other as keyof typeof data] && (data[other as keyof typeof data] as string).trim() !== "")
-    ),
-  {
-    message: "Lütfen kendi seçiminizi belirtin",
-    path: [],
-  }
-);
+export const orderFormSchema = z
+  .object(orderFormShape)
+  .superRefine((data, ctx) => {
+    otherFields.forEach(([mainField, otherField]) => {
+      const mainValue = data[mainField as keyof typeof data];
+      const otherValue = data[otherField as keyof typeof data];
 
+      if (
+        mainValue === "Other" &&
+        (!otherValue || (otherValue as string).trim() === "")
+      ) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Doldurulması zorunlu alan.",
+          path: [otherField],
+        });
+      }
+    });
+
+    if (data.filling.length < 3) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Lütfen en az 3 dolgu seçin.",
+        path: ["filling"],
+      });
+    }
+  });

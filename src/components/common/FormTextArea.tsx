@@ -3,8 +3,8 @@ import React from "react";
 interface FormTextAreaProps {
   id: string;
   placeholder: string;
-  value: string;
-  onChange: (value: string) => void;
+  value: string | null; 
+  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   maxLength: number;
   rows: number;
   className?: string;
@@ -26,8 +26,8 @@ export default function FormTextArea({
     <textarea
       id={id}
       placeholder={placeholder}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
+      value={value ?? ""}
+      onChange={onChange}
       maxLength={maxLength}
       rows={rows}
       className={`${baseStyles} ${className || ""}`}

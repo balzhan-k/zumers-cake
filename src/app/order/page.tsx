@@ -27,7 +27,7 @@ interface OrderFormData {
   otherServingsDetails: string | null; //diğer detayları+
   cakeType: string | null; //pasta türü +
   otherCakeTypeDetails: string | null; //diğer detayları+
-  filling: string | null; //pasta icerigi, kat arasi malzemeler +
+  filling: string[]; //pasta icerigi, kat arasi malzemeler +
   otherFillingDetails: string | null; //diğer detayları+
   colors: string | null; //renkler +
   otherColorsDetails: string | null; //diğer detayları+
@@ -105,23 +105,23 @@ export default function OrderPage() {
   } = useForm<z.infer<typeof orderFormSchema>>({
     resolver: zodResolver(orderFormSchema),
     defaultValues: {
-      occasion: null,
-      otherOccasionDetails: null,
-      servings: null,
-      otherServingsDetails: null,
-      cakeType: null,
-      otherCakeTypeDetails: null,
-      filling: null,
-      otherFillingDetails: null,
-      colors: null,
-      otherColorsDetails: null,
-      allergies: null,
+      occasion: "",
+      otherOccasionDetails: "",
+      servings: "",
+      otherServingsDetails: "",
+      cakeType: "",
+      otherCakeTypeDetails: "",
+      filling: [],
+      otherFillingDetails: "",
+      colors: "",
+      otherColorsDetails: "",
+      allergies: "",
       cakeNote: "",
       specialRequests: "",
       photo: null,
       nameSurname: "",
       phone: "",
-      deliveryDateAndTime: null,
+      deliveryDateAndTime: new Date(),
     },
   });
 
@@ -170,11 +170,17 @@ export default function OrderPage() {
                 />
               ))}
             </div>
+            {errors.occasion && ( // <-- Добавьте этот блок для occasion
+              <span className="text-red-500 text-sm">
+                {errors.occasion.message}
+              </span>
+            )}
             {watch("occasion") === "Other" && (
               <FormTextInput
                 isVisible
-                value={watch("otherOccasionDetails") || ""}
-                onChange={(value) => setValue("otherOccasionDetails", value)}
+                {...register("otherOccasionDetails", {
+                  required: "Doldurulması zorunlu alan",
+                })}
                 placeholder="Örn: Mezuniyet Töreni"
                 maxLength={100}
                 label="Lütfen diğer özel günü belirtiniz:"
@@ -202,11 +208,17 @@ export default function OrderPage() {
                 />
               ))}
             </div>
+            {errors.servings && ( // <-- Добавьте этот блок для occasion
+              <span className="text-red-500 text-sm">
+                {errors.servings.message}
+              </span>
+            )}
             {watch("servings") === "Other" && (
               <FormTextInput
                 isVisible
-                value={watch("otherServingsDetails") || ""}
-                onChange={(value) => setValue("otherServingsDetails", value)}
+                {...register("otherServingsDetails", {
+                  required: "Doldurulması zorunlu alan",
+                })}
                 placeholder="Örn: 10 kişilik"
                 maxLength={100}
                 label="Lütfen diğer kişi sayısını belirtiniz:"
@@ -234,11 +246,17 @@ export default function OrderPage() {
                 />
               ))}
             </div>
+            {errors.cakeType && ( // <-- Добавьте этот блок для occasion
+              <span className="text-red-500 text-sm">
+                {errors.cakeType.message}
+              </span>
+            )}
             {watch("cakeType") === "Other" && (
               <FormTextInput
                 isVisible
-                value={watch("otherCakeTypeDetails") || ""}
-                onChange={(value) => setValue("otherCakeTypeDetails", value)}
+                {...register("otherCakeTypeDetails", {
+                  required: "Doldurulması zorunlu alan",
+                })}
                 placeholder="Örn: Cheese Cake, Tiramisu"
                 maxLength={100}
                 label="Lütfen diğer pasta türünü belirtiniz:"
@@ -260,17 +278,38 @@ export default function OrderPage() {
                 <CustomFormButton
                   key={option.value}
                   value={option.value}
-                  onClick={() => setValue("filling", option.value)}
-                  isSelected={watch("filling") === option.value}
+                  onClick={() => {
+                    const currentFillings = watch("filling");
+                    // Проверяем, есть ли уже этот вариант в выбранных
+                    if (currentFillings.includes(option.value)) {
+                      // Если есть, удаляем его
+                      setValue(
+                        "filling",
+                        currentFillings.filter(
+                          (item) => item !== option.value
+                        ) as string[] // Добавьте as string[] ЗДЕСЬ
+                      );
+                    } else {
+                      // Если нет, добавляем его
+                      setValue("filling", [...currentFillings, option.value]);
+                    }
+                  }}
+                  isSelected={watch("filling")?.includes(option.value)} // ИЗМЕНЕНИЕ ЗДЕСЬ
                   text={option.text}
                 />
               ))}
             </div>
-            {watch("filling") === "Other" && (
+            {errors.filling && ( // ДОБАВЬТЕ ЭТОТ БЛОК ДЛЯ ОТОБРАЖЕНИЯ ОШИБКИ filling
+              <span className="text-red-500 text-sm">
+                {errors.filling.message}
+              </span>
+            )}
+            {watch("filling").includes("Other") && ( // ИЗМЕНЕНИЕ ЗДЕСЬ: используйте .includes()
               <FormTextInput
                 isVisible
-                value={watch("otherFillingDetails") || ""}
-                onChange={(value) => setValue("otherFillingDetails", value)}
+                {...register("otherFillingDetails", {
+                  required: "Doldurulması zorunlu alan",
+                })}
                 placeholder="Örn: Kremalı, Çikolatalı, Meyveli"
                 maxLength={100}
                 label="Lütfen diğer pasta içeriğini belirtiniz:"
@@ -298,11 +337,17 @@ export default function OrderPage() {
                 />
               ))}
             </div>
+            {errors.colors && ( // <-- Добавьте этот блок для occasion
+              <span className="text-red-500 text-sm">
+                {errors.colors.message}
+              </span>
+            )}
             {watch("colors") === "Other" && (
               <FormTextInput
-                isVisible={watch("colors") === "Other"}
-                value={watch("otherColorsDetails") || ""}
-                onChange={(value) => setValue("otherColorsDetails", value)}
+                isVisible
+                {...register("otherColorsDetails", {
+                  required: "Doldurulması zorunlu alan",
+                })}
                 placeholder="Örn: Kırmızı, Mavi, Yeşil"
                 maxLength={100}
                 label="Lütfen diğer renk tercihlerini belirtiniz:"
@@ -331,12 +376,12 @@ export default function OrderPage() {
                   text={option.text}
                 />
               ))}
-              {errors.allergies && (
-                <span className="text-red-500 text-sm">
-                  {errors.allergies.message}
-                </span>
-              )}
             </div>
+            {errors.allergies && ( // <-- Добавьте этот блок для occasion
+              <span className="text-red-500 text-sm">
+                {errors.allergies.message}
+              </span>
+            )}
           </section>
 
           {/* 7. Özel tema veya konsept örneği */}
@@ -367,8 +412,10 @@ export default function OrderPage() {
               <FormTextArea
                 id="cakeNote"
                 placeholder="Örn: Ada 1 yaşında"
-                value={watch("cakeNote") || ""}
-                onChange={(value) => setValue("cakeNote", value)}
+                value={watch("cakeNote")}
+                {...register("cakeNote", {
+                  required: "Doldurulması zorunlu alan",
+                })}
                 maxLength={100}
                 rows={5}
               />
@@ -389,8 +436,10 @@ export default function OrderPage() {
               <FormTextArea
                 id="specialRequests"
                 placeholder="Örn: Yeşil renk ağırlıklı olsun, özel şeker hamuru figürleri kullanılsın"
-                value={watch("specialRequests") || ""}
-                onChange={(value) => setValue("specialRequests", value)}
+                value={watch("specialRequests")}
+                {...register("specialRequests", {
+                  required: "Doldurulması zorunlu alan",
+                })}
                 maxLength={500}
                 rows={6}
               />
@@ -407,8 +456,9 @@ export default function OrderPage() {
             <FormTextInput
               id="nameSurname"
               placeholder="İsim Soyisim"
-              value={watch("nameSurname") || ""}
-              onChange={(value) => setValue("nameSurname", value)}
+              {...register("nameSurname", {
+                required: "Doldurulması zorunlu alan",
+              })}
               maxLength={100}
               label="İsim Soyisim"
             />
@@ -424,8 +474,7 @@ export default function OrderPage() {
             <FormTextInput
               id="phone"
               placeholder="0555 555 55 55"
-              value={watch("phone") || ""}
-              onChange={(value) => setValue("phone", value)}
+              {...register("phone", { required: "Doldurulması zorunlu alan" })}
               maxLength={11}
               label="Telefon Numarası"
             />
