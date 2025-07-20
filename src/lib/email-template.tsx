@@ -1,5 +1,4 @@
 import * as React from "react";
-import Image from "next/image";
 
 interface EmailTemplateProps {
   data: {
@@ -25,7 +24,6 @@ interface EmailTemplateProps {
 
 const formatPhone = (phone: string | null) => {
   if (!phone) return "";
-  // Remove all non-digits and format as Turkish phone number
   const cleaned = phone.replace(/\D/g, "");
   if (cleaned.length === 11 && cleaned.startsWith("0")) {
     return cleaned.replace(/(\d{4})(\d{3})(\d{2})(\d{2})/, "$1 $2 $3 $4");
@@ -57,58 +55,61 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
       maxWidth: "600px",
       margin: "0 auto",
       padding: "20px",
-      backgroundColor: "#f5f5f5",
+      backgroundColor: "#f8f8f8",
+      border: "1px solid #e0e0e0",
+      borderRadius: "10px",
     }}
   >
-    {/* Header */}
     <div
       style={{
-        backgroundColor: "#fff",
-        padding: "30px 20px",
+        backgroundColor: "#ffffff",
+        padding: "30px 25px",
         borderRadius: "8px 8px 0 0",
         textAlign: "center",
-        borderBottom: "3px solid #e91e63",
+        borderBottom: "4px solid #e91e63",
+        boxShadow: "0 2px 8px rgba(0,0,0,0.05)",
       }}
     >
       <h1
         style={{
-          color: "#333",
+          color: "#333333",
           marginTop: "0",
           marginBottom: "10px",
-          fontSize: "28px",
+          fontSize: "30px",
+          fontWeight: "bold",
         }}
       >
         🎂 Yeni Pasta Siparişi
       </h1>
       <p
         style={{
-          color: "#666",
+          color: "#666666",
           margin: "0",
-          fontSize: "16px",
+          fontSize: "17px",
         }}
       >
         Aşağıda sipariş detaylarını bulabilirsiniz
       </p>
     </div>
 
-    {/* Main Content */}
     <div
       style={{
         backgroundColor: "white",
-        padding: "30px 20px",
+        padding: "30px 25px",
         borderRadius: "0 0 8px 8px",
-        boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+        boxShadow: "0 4px 15px rgba(0,0,0,0.08)",
       }}
     >
-      {/* Order Details Section */}
-      <div style={{ marginBottom: "30px" }}>
+      <div style={{ marginBottom: "35px" }}>
         <h3
           style={{
             color: "#e91e63",
             borderBottom: "2px solid #f8bbd9",
-            paddingBottom: "10px",
+            paddingBottom: "12px",
             marginTop: "0",
-            fontSize: "20px",
+            fontSize: "22px",
+            fontWeight: "bold",
+            marginBottom: "20px",
           }}
         >
           📋 Sipariş Detayları
@@ -125,20 +126,20 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
             <tr>
               <td
                 style={{
-                  padding: "12px 0",
+                  padding: "12px 10px",
                   fontWeight: "bold",
                   width: "40%",
                   color: "#333",
-                  borderBottom: "1px solid #f0f0f0",
+                  borderBottom: "1px solid #eeeeee",
                 }}
               >
                 Özel Gün:
               </td>
               <td
                 style={{
-                  padding: "12px 0",
+                  padding: "12px 10px",
                   color: "#555",
-                  borderBottom: "1px solid #f0f0f0",
+                  borderBottom: "1px solid #eeeeee",
                 }}
               >
                 {data.occasion}
@@ -156,22 +157,22 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
               </td>
             </tr>
 
-            <tr style={{ backgroundColor: "#fafafa" }}>
+            <tr style={{ backgroundColor: "#f9f9f9" }}>
               <td
                 style={{
-                  padding: "12px 0",
+                  padding: "12px 10px",
                   fontWeight: "bold",
                   color: "#333",
-                  borderBottom: "1px solid #f0f0f0",
+                  borderBottom: "1px solid #eeeeee",
                 }}
               >
                 Kişi Sayısı:
               </td>
               <td
                 style={{
-                  padding: "12px 0",
+                  padding: "12px 10px",
                   color: "#555",
-                  borderBottom: "1px solid #f0f0f0",
+                  borderBottom: "1px solid #eeeeee",
                 }}
               >
                 {data.servings}
@@ -192,19 +193,19 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
             <tr>
               <td
                 style={{
-                  padding: "12px 0",
+                  padding: "12px 10px",
                   fontWeight: "bold",
                   color: "#333",
-                  borderBottom: "1px solid #f0f0f0",
+                  borderBottom: "1px solid #eeeeee",
                 }}
               >
                 Pasta Türü:
               </td>
               <td
                 style={{
-                  padding: "12px 0",
+                  padding: "12px 10px",
                   color: "#555",
-                  borderBottom: "1px solid #f0f0f0",
+                  borderBottom: "1px solid #eeeeee",
                 }}
               >
                 {data.cakeType}
@@ -222,22 +223,22 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
               </td>
             </tr>
 
-            <tr style={{ backgroundColor: "#fafafa" }}>
+            <tr style={{ backgroundColor: "#f9f9f9" }}>
               <td
                 style={{
-                  padding: "12px 0",
+                  padding: "12px 10px",
                   fontWeight: "bold",
                   color: "#333",
-                  borderBottom: "1px solid #f0f0f0",
+                  borderBottom: "1px solid #eeeeee",
                 }}
               >
                 İçerik & Kat Arası:
               </td>
               <td
                 style={{
-                  padding: "12px 0",
+                  padding: "12px 10px",
                   color: "#555",
-                  borderBottom: "1px solid #f0f0f0",
+                  borderBottom: "1px solid #eeeeee",
                 }}
               >
                 {data.filling}
@@ -258,19 +259,19 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
             <tr>
               <td
                 style={{
-                  padding: "12px 0",
+                  padding: "12px 10px",
                   fontWeight: "bold",
                   color: "#333",
-                  borderBottom: "1px solid #f0f0f0",
+                  borderBottom: "1px solid #eeeeee",
                 }}
               >
                 Renkler:
               </td>
               <td
                 style={{
-                  padding: "12px 0",
+                  padding: "12px 10px",
                   color: "#555",
-                  borderBottom: "1px solid #f0f0f0",
+                  borderBottom: "1px solid #eeeeee",
                 }}
               >
                 {data.colors}
@@ -292,19 +293,19 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
               <tr style={{ backgroundColor: "#fff3cd" }}>
                 <td
                   style={{
-                    padding: "12px 0",
+                    padding: "12px 10px",
                     fontWeight: "bold",
                     color: "#856404",
-                    borderBottom: "1px solid #f0f0f0",
+                    borderBottom: "1px solid #eeeeee",
                   }}
                 >
                   ⚠️ Alerji Durumu:
                 </td>
                 <td
                   style={{
-                    padding: "12px 0",
+                    padding: "12px 10px",
                     color: "#856404",
-                    borderBottom: "1px solid #f0f0f0",
+                    borderBottom: "1px solid #eeeeee",
                   }}
                 >
                   {data.allergies}
@@ -313,22 +314,22 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
             )}
 
             {data.cakeNote && (
-              <tr style={{ backgroundColor: "#fafafa" }}>
+              <tr style={{ backgroundColor: "#f9f9f9" }}>
                 <td
                   style={{
-                    padding: "12px 0",
+                    padding: "12px 10px",
                     fontWeight: "bold",
                     color: "#333",
-                    borderBottom: "1px solid #f0f0f0",
+                    borderBottom: "1px solid #eeeeee",
                   }}
                 >
                   Pasta Üzerine Not:
                 </td>
                 <td
                   style={{
-                    padding: "12px 0",
+                    padding: "12px 10px",
                     color: "#555",
-                    borderBottom: "1px solid #f0f0f0",
+                    borderBottom: "1px solid #eeeeee",
                     fontStyle: "italic",
                   }}
                 >
@@ -341,7 +342,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
               <tr>
                 <td
                   style={{
-                    padding: "12px 0",
+                    padding: "12px 10px",
                     fontWeight: "bold",
                     color: "#333",
                   }}
@@ -350,7 +351,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
                 </td>
                 <td
                   style={{
-                    padding: "12px 0",
+                    padding: "12px 10px",
                     color: "#555",
                   }}
                 >
@@ -360,25 +361,25 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
             )}
 
             {data.photo && (
-              <tr style={{ backgroundColor: "#fafafa" }}>
+              <tr style={{ backgroundColor: "#f9f9f9" }}>
                 <td
                   style={{
-                    padding: "12px 0",
+                    padding: "12px 10px",
                     fontWeight: "bold",
                     color: "#333",
-                    borderBottom: "1px solid #f0f0f0",
+                    borderBottom: "1px solid #eeeeee",
                   }}
                 >
                   Yüklenen Fotoğraf:
                 </td>
                 <td
                   style={{
-                    padding: "12px 0",
+                    padding: "12px 10px",
                     color: "#555",
-                    borderBottom: "1px solid #f0f0f0",
+                    borderBottom: "1px solid #eeeeee",
                   }}
                 >
-                  <Image
+                  <img
                     src={data.photo}
                     alt="Uploaded Photo"
                     width={600}
@@ -388,7 +389,6 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
                       height: "auto",
                       borderRadius: "8px",
                     }}
-                    unoptimized
                   />
                 </td>
               </tr>
@@ -397,15 +397,16 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
         </table>
       </div>
 
-      {/* Customer Information Section */}
-      <div style={{ marginBottom: "20px" }}>
+      <div style={{ marginBottom: "25px" }}>
         <h3
           style={{
             color: "#e91e63",
             borderBottom: "2px solid #f8bbd9",
-            paddingBottom: "10px",
+            paddingBottom: "12px",
             marginTop: "0",
-            fontSize: "20px",
+            fontSize: "22px",
+            fontWeight: "bold",
+            marginBottom: "20px",
           }}
         >
           👤 Müşteri Bilgileri
@@ -422,42 +423,42 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
             <tr>
               <td
                 style={{
-                  padding: "12px 0",
+                  padding: "12px 10px",
                   fontWeight: "bold",
                   width: "40%",
                   color: "#333",
-                  borderBottom: "1px solid #f0f0f0",
+                  borderBottom: "1px solid #eeeeee",
                 }}
               >
                 İsim Soyisim:
               </td>
               <td
                 style={{
-                  padding: "12px 0",
+                  padding: "12px 10px",
                   color: "#555",
-                  borderBottom: "1px solid #f0f0f0",
+                  borderBottom: "1px solid #eeeeee",
                 }}
               >
                 {data.nameSurname}
               </td>
             </tr>
 
-            <tr style={{ backgroundColor: "#fafafa" }}>
+            <tr style={{ backgroundColor: "#f9f9f9" }}>
               <td
                 style={{
-                  padding: "12px 0",
+                  padding: "12px 10px",
                   fontWeight: "bold",
                   color: "#333",
-                  borderBottom: "1px solid #f0f0f0",
+                  borderBottom: "1px solid #eeeeee",
                 }}
               >
                 Telefon:
               </td>
               <td
                 style={{
-                  padding: "12px 0",
+                  padding: "12px 10px",
                   color: "#555",
-                  borderBottom: "1px solid #f0f0f0",
+                  borderBottom: "1px solid #eeeeee",
                 }}
               >
                 <a
@@ -465,6 +466,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
                   style={{
                     color: "#e91e63",
                     textDecoration: "none",
+                    fontWeight: "bold",
                   }}
                 >
                   {formatPhone(data.phone)}
@@ -475,7 +477,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
             <tr>
               <td
                 style={{
-                  padding: "12px 0",
+                  padding: "12px 10px",
                   fontWeight: "bold",
                   color: "#333",
                 }}
@@ -484,7 +486,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
               </td>
               <td
                 style={{
-                  padding: "12px 0",
+                  padding: "12px 10px",
                   color: "#555",
                   fontWeight: "bold",
                 }}
@@ -496,23 +498,19 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
         </table>
       </div>
 
-      {/* Footer */}
       <div
         style={{
           marginTop: "30px",
-          padding: "20px",
-          backgroundColor: "#f8f9fa",
+          padding: "20px 25px",
+          backgroundColor: "#ececec",
           borderRadius: "6px",
           textAlign: "center",
+          color: "#555",
+          fontSize: "14px",
+          borderTop: "1px solid #e0e0e0",
         }}
       >
-        <p
-          style={{
-            margin: "0",
-            color: "#666",
-            fontSize: "14px",
-          }}
-        >
+        <p style={{ margin: "0" }}>
           Yeni bir pasta siparişi alındı. Hayırlı olsun. Bol kazançların olsun.
         </p>
       </div>

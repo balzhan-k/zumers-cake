@@ -51,16 +51,16 @@ export default function ImageModal({
         </button>
 
         <button
-          onClick={onPrev} // (1)
-          disabled={!hasPrev} // (2)
+          onClick={onPrev}
+          disabled={!hasPrev}
           className={` // (3)
     absolute left-4 top-1/2 -translate-y-1/2 text-white p-2 rounded-full
     bg-black bg-opacity-50 hover:bg-opacity-75 transition-colors z-50
     ${!hasPrev ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} // (4)
   `}
-          aria-label="Previous image" // (5)
+          aria-label="Previous image"
         >
-          <svg // (6)
+          <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-8 w-8"
             fill="none"
@@ -75,7 +75,6 @@ export default function ImageModal({
               strokeLinejoin="round"
               d="M15 19l-7-7 7-7"
             />{" "}
-            {/* (7) */}
           </svg>
         </button>
 

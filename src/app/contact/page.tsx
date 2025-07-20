@@ -9,8 +9,8 @@ import TextElement from "@/components/common/TextElement";
 
 interface ContactItem {
   id: string;
-  title: string; // New field for the title like "Call us"
-  description: string; // New field for the actual contact detail
+  title: string; 
+  description: string; 
   href: string;
   icon: React.ElementType;
   target?: string;
@@ -63,7 +63,7 @@ const contactDetails: ContactItem[] = [
 
 export default function Contact() {
   return (
-    <main className="lg:max-w-3xl md:max-w-2xl flex flex-col mx-auto px-4 py-8 pb-20">
+    <main className="container mx-auto px-4 py-8 pb-20">
       <TextElement variant="h2">Bizimle iletişime geçin</TextElement>
       <TextElement variant="p">
         Her türlü soru, öneri ya da özel talebiniz için bizimle iletişime

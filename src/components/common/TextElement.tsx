@@ -18,7 +18,7 @@ export default function TextElement({
 }: TextElementProps) {
   const baseStyles: Record<TextElementVariant, string> = {
     h2: "text-xl md:text-2xl font-bold ",
-    h3: "text-md md:text-lg font-bold",
+    h3: "text-md md:text-lg font-bold pb-1",
     p: "text-sm md:text-md py-2 lg:text-lg font-regular",
   };
 

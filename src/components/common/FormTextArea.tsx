@@ -1,36 +1,23 @@
-import React from "react";
+import React, { TextareaHTMLAttributes } from "react";
 
-interface FormTextAreaProps {
+interface FormTextAreaProps
+  extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   id: string;
-  placeholder: string;
-  value: string | null; 
-  onChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  maxLength: number;
-  rows: number;
-  className?: string;
 }
 
-export default function FormTextArea({
-  id,
-  placeholder,
-  value,
-  onChange,
-  maxLength,
-  rows,
-  className,
-}: FormTextAreaProps) {
-  const baseStyles =
-    "p-3 border rounded-lg w-full text-sm focus:outline-none focus:ring-rose-500 focus:border-rose-500 shadow-sm";
+const FormTextArea = React.forwardRef<HTMLTextAreaElement, FormTextAreaProps>(
+  ({ id, ...rest }, ref) => {
+    return (
+      <textarea
+        id={id}
+        ref={ref} 
+        {...rest} 
+        className="p-3 border rounded-lg w-full text-sm focus:ring-rose-500 focus:border-rose-500 shadow-sm focus:outline-none" 
+      />
+    );
+  }
+);
 
-  return (
-    <textarea
-      id={id}
-      placeholder={placeholder}
-      value={value ?? ""}
-      onChange={onChange}
-      maxLength={maxLength}
-      rows={rows}
-      className={`${baseStyles} ${className || ""}`}
-    />
-  );
-}
+FormTextArea.displayName = "FormTextArea";
+
+export default FormTextArea;

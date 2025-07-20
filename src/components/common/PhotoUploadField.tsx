@@ -14,11 +14,12 @@ interface PhotoUploadFieldProps {
 export default function PhotoUploadField({
   value,
   onChange,
-  hintText = "PNG, JPG, GIF",
+  hintText = "JPEG, JPG, WEBP",
   maxSizeMB = 10,
-  acceptedFileTypes = ["image/png", "image/jpeg", "image/gif"],
+  acceptedFileTypes = ["image/jpeg", "image/jpeg", "image/webp"],
 }: PhotoUploadFieldProps) {
   const [previewUrl, setPreviewUrl] = useState<string | null>(value);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     setPreviewUrl(value);
@@ -28,18 +29,29 @@ export default function PhotoUploadField({
     const file = e.target.files ? e.target.files[0] : null;
 
     if (file) {
+      setIsLoading(true);
+
       if (file.size > maxSizeMB * 1024 * 1024) {
         alert(`Dosya boyutu ${maxSizeMB}MB'tan büyük olamaz.`);
         e.target.value = "";
         onChange(null);
+        setIsLoading(false); // Stop loading on validation error
         return;
       }
       if (!acceptedFileTypes.includes(file.type)) {
         alert("Lütfen geçerli bir resim dosyası seçiniz.");
         e.target.value = "";
         onChange(null);
+        setIsLoading(false); // Stop loading on validation error
         return;
       }
+
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setPreviewUrl(reader.result as string);
+        // We don't call onChange here, it's done after the actual upload
+      };
+      reader.readAsDataURL(file);
 
       try {
         const response = await fetch(`/api/upload?filename=${file.name}`, {
@@ -53,18 +65,25 @@ export default function PhotoUploadField({
 
         const newBlob = await response.json();
         onChange(newBlob.url);
+        setPreviewUrl(newBlob.url); // Update preview with the actual uploaded URL
       } catch (error) {
         console.error("Error uploading file:", error);
         alert("Fotoğraf yüklenirken bir hata oluştu.");
-        onChange(null);
+        onChange(null); // Clear the value on error
+        setPreviewUrl(null);
+      } finally {
+        setIsLoading(false); // Always stop loading at the end of the process
       }
     } else {
-      onChange(null);
+      onChange(null); // Clear if no file is selected
+      setPreviewUrl(null);
+      setIsLoading(false); // Stop loading if no file is selected
     }
   };
 
   const handleRemoveClick = () => {
     onChange(null);
+    setPreviewUrl(null); // Also clear the preview when removing
     const inputElement = document.getElementById(
       "photoUpload"
     ) as HTMLInputElement;
@@ -88,7 +107,11 @@ export default function PhotoUploadField({
             onChange={handleFileChange}
           />
 
-          {previewUrl ? (
+          {isLoading ? (
+            <div className="flex items-center justify-center h-48">
+              <div className="w-12 h-12 border-4 border-dashed rounded-full animate-spin border-rose-500"></div>
+            </div>
+          ) : previewUrl ? (
             <div className="relative w-full h-48 mb-4">
               <Image
                 width={100}
@@ -97,9 +120,6 @@ export default function PhotoUploadField({
                 alt="Seçilen Fotoğraf Önizlemesi"
                 className="object-contain w-full h-full rounded-md"
               />
-              <p className="text-gray-600 text-sm mt-2">
-                Seçilen Dosya: {previewUrl.split("/").pop()} (
-              </p>
             </div>
           ) : (
             <>
@@ -129,7 +149,7 @@ export default function PhotoUploadField({
         </label>
       </div>
 
-      {value && (
+      {value && !isLoading && (
         <button
           type="button"
           onClick={handleRemoveClick}

@@ -1,6 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { orderFormSchema } from "@/lib/orderSchema";
+import { z } from "zod";
+
 import CustomFormButton from "@/components/common/CustomButton";
 import TextElement from "@/components/common/TextElement";
 import FormTextInput from "@/components/common/FormTextInput";
@@ -12,32 +17,26 @@ import moment from "moment";
 import "moment/locale/tr";
 import SuccessPopup from "@/components/common/SuccessPopup";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { orderFormSchema } from "@/lib/orderSchema";
-import { z } from "zod";
-import { set } from "zod/v4-mini";
-
 moment.locale("tr");
 
 interface OrderFormData {
-  occasion: string | null; //hangi kutlama/ozel gun +
-  otherOccasionDetails: string | null; //diğer kutlama detayları+
-  servings: string | null; //kaç kisilik +
-  otherServingsDetails: string | null; //diğer detayları+
-  cakeType: string | null; //pasta türü +
-  otherCakeTypeDetails: string | null; //diğer detayları+
-  filling: string[]; //pasta icerigi, kat arasi malzemeler +
-  otherFillingDetails: string | null; //diğer detayları+
-  colors: string | null; //renkler +
-  otherColorsDetails: string | null; //diğer detayları+
-  allergies: string | null; //alergenler+
-  photo: string | null; //fotoğraf
-  cakeNote: string; //pasta üzerine yazılacak not
-  specialRequests: string; //mesaj+
-  nameSurname: string; //ad soyad
-  phone: string | null; //telefon
-  deliveryDateAndTime: Date | null; //teslimat tarihi
+  occasion: string | null;
+  otherOccasionDetails: string | null;
+  servings: string | null;
+  otherServingsDetails: string | null;
+  cakeType: string | null;
+  otherCakeTypeDetails: string | null;
+  filling: string[];
+  otherFillingDetails: string | null;
+  colors: string | null;
+  otherColorsDetails: string | null;
+  allergies: string | null;
+  photo: string | null;
+  cakeNote: string;
+  specialRequests: string;
+  nameSurname: string;
+  phone: string | null;
+  deliveryDateAndTime: Date | null;
 }
 
 interface SelectionOption {
@@ -149,14 +148,13 @@ export default function OrderPage() {
     }
   };
 
-  // ...existing code...
   return (
     <main className="px-4 py-8 bg-rose-50 pb-20">
       <TextElement variant="h2" className="text-center pb-4">
         Pasta Sipariş Formu
       </TextElement>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="mx-auto md:max-w-3xl p-8 border border-rose-200 rounded-2xl shadow-md bg-stone-50">
+        <div className="container mx-auto px-4 py-8 pb-20 border border-rose-200 rounded-2xl shadow-md bg-stone-50">
           <section className="mb-8">
             <TextElement variant="h3">1. Özel Gün:</TextElement>
             <div className="flex flex-wrap gap-3 mb-4">
@@ -170,7 +168,7 @@ export default function OrderPage() {
                 />
               ))}
             </div>
-            {errors.occasion && ( // <-- Добавьте этот блок для occasion
+            {errors.occasion && (
               <span className="text-red-500 text-sm">
                 {errors.occasion.message}
               </span>
@@ -194,7 +192,6 @@ export default function OrderPage() {
             )}
           </section>
 
-          {/* 2. Kaç Kişilik */}
           <section className="mb-8">
             <TextElement variant="h3">2. Kaç Kişilik:</TextElement>
             <div className="flex flex-wrap gap-3 mb-4">
@@ -208,7 +205,7 @@ export default function OrderPage() {
                 />
               ))}
             </div>
-            {errors.servings && ( // <-- Добавьте этот блок для occasion
+            {errors.servings && (
               <span className="text-red-500 text-sm">
                 {errors.servings.message}
               </span>
@@ -232,7 +229,6 @@ export default function OrderPage() {
             )}
           </section>
 
-          {/* 3. Pasta Türü */}
           <section className="mb-8">
             <TextElement variant="h3">3. Pasta Türü:</TextElement>
             <div className="flex flex-wrap gap-3 mb-4">
@@ -246,7 +242,7 @@ export default function OrderPage() {
                 />
               ))}
             </div>
-            {errors.cakeType && ( // <-- Добавьте этот блок для occasion
+            {errors.cakeType && (
               <span className="text-red-500 text-sm">
                 {errors.cakeType.message}
               </span>
@@ -270,7 +266,6 @@ export default function OrderPage() {
             )}
           </section>
 
-          {/* 4. Pasta İçeriği */}
           <section className="mb-8">
             <TextElement variant="h3">4. Pasta İçeriği:</TextElement>
             <div className="flex flex-wrap gap-3 mb-4">
@@ -280,31 +275,34 @@ export default function OrderPage() {
                   value={option.value}
                   onClick={() => {
                     const currentFillings = watch("filling");
-                    // Проверяем, есть ли уже этот вариант в выбранных
-                    if (currentFillings.includes(option.value)) {
-                      // Если есть, удаляем его
+                    const isSelected = currentFillings.includes(option.value);
+
+                    if (isSelected) {
                       setValue(
                         "filling",
                         currentFillings.filter(
                           (item) => item !== option.value
-                        ) as string[] // Добавьте as string[] ЗДЕСЬ
+                        ) as string[]
                       );
                     } else {
-                      // Если нет, добавляем его
-                      setValue("filling", [...currentFillings, option.value]);
+                      if (currentFillings.length < 3) {
+                        setValue("filling", [...currentFillings, option.value]);
+                      } else {
+                        alert("En fazla 3 içerik seçebilirsiniz.");
+                      }
                     }
                   }}
-                  isSelected={watch("filling")?.includes(option.value)} // ИЗМЕНЕНИЕ ЗДЕСЬ
+                  isSelected={watch("filling")?.includes(option.value)}
                   text={option.text}
                 />
               ))}
             </div>
-            {errors.filling && ( // ДОБАВЬТЕ ЭТОТ БЛОК ДЛЯ ОТОБРАЖЕНИЯ ОШИБКИ filling
+            {errors.filling && (
               <span className="text-red-500 text-sm">
                 {errors.filling.message}
               </span>
             )}
-            {watch("filling").includes("Other") && ( // ИЗМЕНЕНИЕ ЗДЕСЬ: используйте .includes()
+            {watch("filling").includes("Other") && (
               <FormTextInput
                 isVisible
                 {...register("otherFillingDetails", {
@@ -323,7 +321,6 @@ export default function OrderPage() {
             )}
           </section>
 
-          {/* 5. Renk Tercihleri */}
           <section className="mb-8">
             <TextElement variant="h3">5. Renk Tercihleri:</TextElement>
             <div className="flex flex-wrap gap-3 mb-4">
@@ -337,7 +334,7 @@ export default function OrderPage() {
                 />
               ))}
             </div>
-            {errors.colors && ( // <-- Добавьте этот блок для occasion
+            {errors.colors && (
               <span className="text-red-500 text-sm">
                 {errors.colors.message}
               </span>
@@ -361,10 +358,9 @@ export default function OrderPage() {
             )}
           </section>
 
-          {/* 6. Alerji veya özel diyet durumu var mı? */}
           <section className="mb-8">
             <TextElement variant="h3">
-              6. Alerji veya özel diyet durumu var mı?{" "}
+              6. Alerji veya özel diyet durumu var mı?
             </TextElement>
             <div className="flex flex-wrap gap-3">
               {allergiesOptions.map((option) => (
@@ -377,14 +373,13 @@ export default function OrderPage() {
                 />
               ))}
             </div>
-            {errors.allergies && ( // <-- Добавьте этот блок для occasion
+            {errors.allergies && (
               <span className="text-red-500 text-sm">
                 {errors.allergies.message}
               </span>
             )}
           </section>
 
-          {/* 7. Özel tema veya konsept örneği */}
           <section className="mb-8">
             <TextElement variant="h3">
               7. Özel tema veya konsept örneği:
@@ -403,7 +398,6 @@ export default function OrderPage() {
             )}
           </section>
 
-          {/* 8. Pasta üzerine yazılacak not */}
           <section className="mb-8">
             <TextElement variant="h3">
               8.Pasta üzerine yazılacak not:
@@ -412,22 +406,18 @@ export default function OrderPage() {
               <FormTextArea
                 id="cakeNote"
                 placeholder="Örn: Ada 1 yaşında"
-                value={watch("cakeNote")}
-                {...register("cakeNote", {
-                  required: "Doldurulması zorunlu alan",
-                })}
+                {...register("cakeNote")}
                 maxLength={100}
                 rows={5}
               />
-              {errors.cakeNote && (
-                <span className="text-red-500 text-sm">
-                  {errors.cakeNote.message}
-                </span>
-              )}
             </div>
+            {errors.cakeNote && (
+              <span className="text-red-500 text-sm">
+                {errors.cakeNote.message}
+              </span>
+            )}
           </section>
 
-          {/* 9. Pasta ile ilgili özel notlar veya istekler */}
           <section className="mb-8">
             <TextElement variant="h3">
               9. Pasta ile ilgili özel notlar veya istekler:
@@ -436,19 +426,16 @@ export default function OrderPage() {
               <FormTextArea
                 id="specialRequests"
                 placeholder="Örn: Yeşil renk ağırlıklı olsun, özel şeker hamuru figürleri kullanılsın"
-                value={watch("specialRequests")}
-                {...register("specialRequests", {
-                  required: "Doldurulması zorunlu alan",
-                })}
+                {...register("specialRequests")}
                 maxLength={500}
                 rows={6}
               />
-              {errors.specialRequests && (
-                <span className="text-red-500 text-sm">
-                  {errors.specialRequests.message}
-                </span>
-              )}
             </div>
+            {errors.specialRequests && (
+              <span className="text-red-500 text-sm">
+                {errors.specialRequests.message}
+              </span>
+            )}
           </section>
 
           <section className="mb-8">
@@ -485,10 +472,9 @@ export default function OrderPage() {
             )}
           </section>
 
-          {/* 12. Teslimat Tarihi ve Saati */}
           <section className="mb-8">
             <TextElement variant="h3">
-              12. Teslimat Tarihi ve Saati:
+              12. Pastanın Hazır Olacağı Tarih ve Saat:
             </TextElement>
             <div className="flex flex-wrap gap-3 w-full">
               <Datetime
@@ -511,12 +497,12 @@ export default function OrderPage() {
                 }}
                 className="w-full"
               />
-              {errors.deliveryDateAndTime && (
-                <span className="text-red-500 text-sm">
-                  {errors.deliveryDateAndTime.message}
-                </span>
-              )}
             </div>
+            {errors.deliveryDateAndTime && (
+              <span className="text-red-500 text-sm">
+                {errors.deliveryDateAndTime.message}
+              </span>
+            )}
           </section>
 
           <button

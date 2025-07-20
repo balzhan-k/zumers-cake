@@ -10,22 +10,26 @@ const otherFields = [
 
 const orderFormShape = {
   occasion: z.string().nonempty("Lütfen bir seçim yapın."),
-  otherOccasionDetails: z.string(), // Bu alan zaten refine-правилом управляется
+  otherOccasionDetails: z.string(),
   servings: z.string().nonempty("Lütfen bir seçim yapın."),
-  otherServingsDetails: z.string(), // Этот поле уже управляется правилом refine
+  otherServingsDetails: z.string(),
   cakeType: z.string().nonempty("Lütfen bir seçim yapın."),
-  otherCakeTypeDetails: z.string(), // Этот поле уже управляется правилом refine
-  filling: z.array(z.string()), // ИЗМЕНЕНИЕ ЗДЕСЬ: Убрали .nonempty() из самого определения
-  otherFillingDetails: z.string(), // Этот поле уже управляется правилом refine
+  otherCakeTypeDetails: z.string(),
+  filling: z.array(z.string()).max(3, "En fazla 3 içerik seçebilirsiniz."), 
+  otherFillingDetails: z.string(),
   colors: z.string().nonempty("Lütfen bir seçim yapın."),
-  otherColorsDetails: z.string(), // Этот поле уже управляется правилом refine
+  otherColorsDetails: z.string(),
   allergies: z.string().nonempty("Lütfen bir seçim yapın."),
   photo: z.string().nullable(),
-  cakeNote: z.string().nonempty("Doldurulması zorunlu alan"),
-  specialRequests: z.string().nonempty("Doldurulması zorunlu alan"),
-  nameSurname: z.string().nonempty("Doldurulması zorunlu alan"),
-  phone: z.string().nonempty("Doldurulması zorunlu alan"),
-  deliveryDateAndTime: z.date(),
+  cakeNote: z.string().nonempty("Lütfen bu alanı doldurun."),
+  specialRequests: z.string().nonempty("Lütfen bu alanı doldurun."),
+  nameSurname: z.string().nonempty("Lütfen bu alanı doldurun."),
+  phone: z.string().nonempty("Lütfen bu alanı doldurun."),
+  deliveryDateAndTime: z
+    .date({
+      required_error: "Lütfen tarih ve saat seçin.",
+    })
+    .min(new Date(), "Lütfen geçerli bir tarih ve saat giriniz."),
 };
 
 export const orderFormSchema = z
@@ -41,16 +45,16 @@ export const orderFormSchema = z
       ) {
         ctx.addIssue({
           code: z.ZodIssueCode.custom,
-          message: "Doldurulması zorunlu alan.",
+          message: "Lütfen bu alanı doldurun.",
           path: [otherField],
         });
       }
     });
 
-    if (data.filling.length < 3) {
+    if (data.filling.length === 0) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
-        message: "Lütfen en az 3 dolgu seçin.",
+        message: "Lütfen bir seçim yapın.",
         path: ["filling"],
       });
     }

@@ -76,23 +76,16 @@ export function getGalleryData(): {
       const indexA = PREFERRED_CATEGORY_ORDER.indexOf(a);
       const indexB = PREFERRED_CATEGORY_ORDER.indexOf(b);
 
-      // If both are in the preferred order, sort by their index
       if (indexA !== -1 && indexB !== -1) {
-        // (3)
-        return indexA - indexB; // (3)
+        return indexA - indexB; 
       }
-      // If only A is in preferred order, A comes first
       if (indexA !== -1) {
-        // (4)
-        return -1; // (4)
+        return -1; 
       }
-      // If only B is in preferred order, B comes first
       if (indexB !== -1) {
-        // (5)
-        return 1; // (5)
+        return 1; 
       }
-      // If neither is in preferred order, sort alphabetically (fallback)
-      return a.localeCompare(b); // (6)
+      return a.localeCompare(b); 
     }),
   };
 }
