@@ -44,7 +44,7 @@ export default function About() {
         <p className="text-base text-rose-600 font-medium">Ödüllü Pasta Şefi</p>
       </section>
 
-      <section className="bg-white p-6 mx-4 rounded-lg shadow-md mt-8 text-gray-700 text-base leading-relaxed">
+      <section className="bg-white px-6 md:mx-4 rounded-lg shadow-md mt-8 text-gray-700 text-base leading-relaxed">
         <TextElement variant="p">
           Merhaba, ben Zümer Şener. Zumer’s Cake markasının kurucusu ve pasta
           sanatçısıyım. Tatlıları sadece lezzetli bir ikram olarak değil, aynı
@@ -95,7 +95,7 @@ export default function About() {
       </section>
 
       {/* Awards & Recognition Section */}
-      <section className="mx-4 mt-8 mb-4">
+      <section className="md:mx-4 mt-8 mb-4">
         <h3 className="text-xl font-bold text-gray-800 mb-4">
           Eğitim & Ödüller
         </h3>
