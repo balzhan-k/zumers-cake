@@ -1,9 +1,29 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import TextElement from "@/components/common/TextElement";
+import ImageModal from "@/components/gallery/ImageModal";
+import AwardItem from "@/components/common/AwardItem";
+
+const awardImages = [
+  "/certificates/WhatsApp Image 2025-06-07 at 17.40.37.jpeg",
+  "/certificates/WhatsApp Image 2025-06-07 at 17.40.37 (1).jpeg",
+  "/certificates/WhatsApp Image 2025-06-07 at 17.40.38 (1).jpeg",
+];
 
 export default function About() {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const openModal = (imageSrc: string) => {
+    setSelectedImage(imageSrc);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+  };
+
   return (
     <main className="container mx-auto px-4 py-8 pb-20">
       <section className="flex flex-col items-center mt-8 px-4">
@@ -31,10 +51,7 @@ export default function About() {
           zamanda duyguları ve anıları yansıtan estetik birer sanat eseri olarak
           görüyorum. Mutfak, hayal gücümün ve emeğimin buluştuğu özel bir alan.
         </TextElement>
-        <TextElement
-          variant="h3"
-          className="text-2xl font-bold text-gray-800 mt-4"
-        >
+        <TextElement variant="p" className=" font-bold pb-0">
           Ödüllerle Taçlanan Emek
         </TextElement>
         <TextElement variant="p">
@@ -54,10 +71,7 @@ export default function About() {
           zamanda işime duyduğum sevginin, detaylara verdiğim önemin ve her
           ürüne kattığım özenin bir yansıması.
         </TextElement>
-        <TextElement
-          variant="h3"
-          className="text-2xl font-bold text-gray-800 mt-4"
-        >
+        <TextElement variant="p" className=" font-bold pb-0">
           Zumer’s Cake: Kişiye Özel Zarafet
         </TextElement>
         <TextElement variant="p">
@@ -69,10 +83,7 @@ export default function About() {
           tek ve özenle hazırlanıyor. Çünkü biliyorum ki detaylar önemlidir — ve
           her küçük detay, büyük anılar yaratır.
         </TextElement>
-        <TextElement
-          variant="h3"
-          className="text-2xl font-bold text-gray-800 mt-4"
-        >
+        <TextElement variant="p" className=" font-bold pb-0">
           Hayalinizdeki Tatlılar İçin İletişime Geçin
         </TextElement>
         <TextElement variant="p">
@@ -89,49 +100,39 @@ export default function About() {
           Awards & Recognition
         </h3>
         <div className="space-y-3">
-          {/* Award Item 1 */}
-          <div className="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between">
-            <span className="text-3xl mr-4">🏆</span> {/* Trophy emoji */}
-            <div className="flex flex-col flex-grow">
-              <p className="font-semibold text-lg text-gray-800">
-                Best Pastry Chef of the Year
-              </p>
-              <p className="text-sm text-gray-600">
-                National Culinary Awards, 2022
-              </p>
-            </div>
-            <span className="text-xl text-gray-400">›</span>
-          </div>
+          <AwardItem
+            emoji="🏆"
+            title="Best Pastry Chef of the Year"
+            subtitle="National Culinary Awards, 2022"
+            onClick={() => openModal(awardImages[0])}
+          />
 
-          {/* Award Item 2 */}
-          <div className="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between">
-            <span className="text-3xl mr-4">🏅</span> {/* Medal emoji */}
-            <div className="flex flex-col flex-grow">
-              <p className="font-semibold text-lg text-gray-800">
-                Gold Medal, Sugar Artistry
-              </p>
-              <p className="text-sm text-gray-600">
-                International Cake & Bake Show, 2021
-              </p>
-            </div>
-            <span className="text-xl text-gray-400">›</span>
-          </div>
+          <AwardItem
+            emoji="🏅"
+            title="Gold Medal, Sugar Artistry"
+            subtitle="International Cake & Bake Show, 2021"
+            onClick={() => openModal(awardImages[1])}
+          />
 
-          {/* Award Item 3 */}
-          <div className="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between">
-            <span className="text-3xl mr-4">👑</span> {/* Crown emoji */}
-            <div className="flex flex-col flex-grow">
-              <p className="font-semibold text-lg text-gray-800">
-                Grand Champion
-              </p>
-              <p className="text-sm text-gray-600">
-                National Baking Championship, 2020
-              </p>
-            </div>
-            <span className="text-xl text-gray-400">›</span>
-          </div>
+          <AwardItem
+            emoji="👑"
+            title="Grand Champion"
+            subtitle="National Baking Championship, 2020"
+            onClick={() => openModal(awardImages[2])}
+          />
         </div>
       </section>
+      {selectedImage && (
+        <ImageModal
+          src={selectedImage}
+          onClose={closeModal}
+          alt="Award Certificate"
+          onNext={() => {}}
+          onPrev={() => {}}
+          hasNext={false}
+          hasPrev={false}
+        />
+      )}
     </main>
   );
 }

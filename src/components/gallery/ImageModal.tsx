@@ -50,59 +50,63 @@ export default function ImageModal({
           &times;
         </button>
 
-        <button
-          onClick={onPrev}
-          disabled={!hasPrev}
-          className={` // (3)
+        {hasPrev && (
+          <button
+            onClick={onPrev}
+            disabled={!hasPrev}
+            className={` // (3)
     absolute left-4 top-1/2 -translate-y-1/2 text-white p-2 rounded-full
     bg-black bg-opacity-50 hover:bg-opacity-75 transition-colors z-50
     ${!hasPrev ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} // (4)
   `}
-          aria-label="Previous image"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-8 w-8"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            aria-label="Previous image"
           >
-            <path
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
               strokeLinecap="round"
               strokeLinejoin="round"
-              d="M15 19l-7-7 7-7"
-            />{" "}
-          </svg>
-        </button>
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M15 19l-7-7 7-7"
+              />{" "}
+            </svg>
+          </button>
+        )}
 
-        <button
-          onClick={onNext}
-          disabled={!hasNext}
-          className={`
+        {hasNext && (
+          <button
+            onClick={onNext}
+            disabled={!hasNext}
+            className={`
             absolute right-4 top-1/2 -translate-y-1/2 text-white p-2 rounded-full
             bg-black bg-opacity-50 hover:bg-opacity-75 transition-colors z-50
             ${!hasNext ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
           `}
-          aria-label="Next image"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-8 w-8"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
+            aria-label="Next image"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-8 w-8"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              strokeWidth={2}
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+        )}
       </div>
     </div>
   );
