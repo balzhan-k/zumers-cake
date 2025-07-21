@@ -46,7 +46,7 @@ export default function About() {
 
       <section className="bg-white p-6 mx-4 rounded-lg shadow-md mt-8 text-gray-700 text-base leading-relaxed">
         <TextElement variant="p">
-          Merhaba, ben Zümer Özçelik. Zumer’s Cake markasının kurucusu ve pasta
+          Merhaba, ben Zümer Şener. Zumer’s Cake markasının kurucusu ve pasta
           sanatçısıyım. Tatlıları sadece lezzetli bir ikram olarak değil, aynı
           zamanda duyguları ve anıları yansıtan estetik birer sanat eseri olarak
           görüyorum. Mutfak, hayal gücümün ve emeğimin buluştuğu özel bir alan.
