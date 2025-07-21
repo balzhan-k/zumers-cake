@@ -2,6 +2,7 @@ import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 import { EmailTemplate } from "@/lib/email-template";
 import { orderFormSchema } from "@/lib/orderSchema";
+import { ZodError } from "zod";
 
 const resend = new Resend(process.env.RESEND_API_KEY!);
 
@@ -187,8 +188,8 @@ export async function POST(req: NextRequest) {
     if (error instanceof Error) {
       console.error("Error name:", error.name);
       console.error("Error message:", error.message);
-      if ("issues" in error && Array.isArray((error as any).issues)) {
-        console.error("Zod validation issues:", (error as any).issues);
+      if ("issues" in error && Array.isArray((error as ZodError).issues)) {
+        console.error("Zod validation issues:", (error as ZodError).issues);
       }
     }
     return NextResponse.json(
