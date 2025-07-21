@@ -19,26 +19,6 @@ import SuccessPopup from "@/components/common/SuccessPopup";
 
 moment.locale("tr");
 
-interface OrderFormData {
-  occasion: string | null;
-  otherOccasionDetails: string | null;
-  servings: string | null;
-  otherServingsDetails: string | null;
-  cakeType: string | null;
-  otherCakeTypeDetails: string | null;
-  filling: string[];
-  otherFillingDetails: string | null;
-  colors: string | null;
-  otherColorsDetails: string | null;
-  allergies: string | null;
-  photo: string | null;
-  cakeNote: string;
-  specialRequests: string;
-  nameSurname: string;
-  phone: string | null;
-  deliveryDateAndTime: Date | null;
-}
-
 interface SelectionOption {
   value: string;
   text: string;

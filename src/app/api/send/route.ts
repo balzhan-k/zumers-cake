@@ -187,7 +187,7 @@ export async function POST(req: NextRequest) {
     if (error instanceof Error) {
       console.error("Error name:", error.name);
       console.error("Error message:", error.message);
-      if ("issues" in error) {
+      if ("issues" in error && Array.isArray((error as any).issues)) {
         console.error("Zod validation issues:", (error as any).issues);
       }
     }

@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import React, { useState } from "react";
 import TextElement from "@/components/common/TextElement";
 import ImageModal from "@/components/gallery/ImageModal";

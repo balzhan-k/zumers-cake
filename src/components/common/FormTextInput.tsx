@@ -16,7 +16,7 @@ interface FormTextInputProps {
   type?: "text" | "email" | "tel" | "number" | "password";
   isVisible?: boolean;
   name?: string;
-  ref?: React.Ref<any>;
+  ref?: React.Ref<HTMLInputElement>;
 }
 
 export default function FormTextInput({
