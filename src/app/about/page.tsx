@@ -8,9 +8,10 @@ import ImageModal from "@/components/gallery/ImageModal";
 import AwardItem from "@/components/common/AwardItem";
 
 const awardImages = [
-  "/certificates/WhatsApp Image 2025-06-07 at 17.40.37.jpeg",
-  "/certificates/WhatsApp Image 2025-06-07 at 17.40.37 (1).jpeg",
-  "/certificates/WhatsApp Image 2025-06-07 at 17.40.38 (1).jpeg",
+  "/certificates/cer1.jpeg",
+  "/certificates/cer2.jpeg",
+  "/certificates/cer3.jpg",
+  "/certificates/cer4.jpeg",
 ];
 
 export default function About() {
@@ -97,28 +98,32 @@ export default function About() {
       {/* Awards & Recognition Section */}
       <section className="mx-4 mt-8 mb-4">
         <h3 className="text-xl font-bold text-gray-800 mb-4">
-          Awards & Recognition
+          Eğitim & Ödüller
         </h3>
-        <div className="space-y-3">
+        <div className="grid grid-cols-1 space-y-3 lg:space-y-0 lg:grid lg:grid-cols-4 gap-2">
           <AwardItem
-            emoji="🏆"
-            title="Best Pastry Chef of the Year"
-            subtitle="National Culinary Awards, 2022"
+            emoji="📜"
+            title="İşletmelerde Hijyen Programı"
+            subtitle="T.C. Milli Eğitim Bakanlığı"
             onClick={() => openModal(awardImages[0])}
           />
-
           <AwardItem
-            emoji="🏅"
-            title="Gold Medal, Sugar Artistry"
-            subtitle="International Cake & Bake Show, 2021"
+            emoji="📜"
+            title="Gıda Güvenliği Eğitimi"
+            subtitle="Unilever Food Solutions"
             onClick={() => openModal(awardImages[1])}
           />
-
           <AwardItem
-            emoji="👑"
-            title="Grand Champion"
-            subtitle="National Baking Championship, 2020"
+            emoji="🏅"
+            title="The Best of Sugar Art İzmir"
+            subtitle="Türkiye Pastacılar Derneği"
             onClick={() => openModal(awardImages[2])}
+          />
+          <AwardItem
+            emoji="🏅"
+            title="Mengen Ulusal Aşçılık Yarışması"
+            subtitle="Mengen Aşçılar Federasyonu"
+            onClick={() => openModal(awardImages[3])}
           />
         </div>
       </section>

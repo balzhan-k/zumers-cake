@@ -14,11 +14,11 @@ const AwardItem: React.FC<AwardItemProps> = ({
   onClick,
 }) => (
   <div
-    className="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between cursor-pointer"
+    className="bg-white p-4 rounded-lg shadow-sm flex items-center justify-between cursor-pointer min-h-[120px]"
     onClick={onClick}
   >
     <span className="text-3xl mr-4">{emoji}</span>
-    <div className="flex flex-col flex-grow">
+    <div className="flex flex-col flex-grow justify-between">
       <p className="font-semibold text-lg text-gray-800">{title}</p>
       <p className="text-sm text-gray-600">{subtitle}</p>
     </div>
