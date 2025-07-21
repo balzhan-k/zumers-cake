@@ -45,6 +45,9 @@ export default function About() {
       </section>
 
       <section className="bg-white px-6 md:mx-4 rounded-lg shadow-md mt-8 text-gray-700 text-base leading-relaxed">
+      <TextElement variant="p" className=" font-bold pb-0 pt-5">
+      Lezzeti Sanata Dönüştüren Pasta Sanatçısı
+        </TextElement>
         <TextElement variant="p">
           Merhaba, ben Zümer Şener. Zumer’s Cake markasının kurucusu ve pasta
           sanatçısıyım. Tatlıları sadece lezzetli bir ikram olarak değil, aynı
@@ -86,7 +89,7 @@ export default function About() {
         <TextElement variant="p" className=" font-bold pb-0">
           Hayalinizdeki Tatlılar İçin İletişime Geçin
         </TextElement>
-        <TextElement variant="p">
+        <TextElement variant="p"  className="pb-5">
           Özel günleriniz için özgün ve zarif tatlı tasarımları hakkında detaylı
           bilgi almak veya teklif talep etmek için lütfen benimle iletişime
           geçin. Size özel, yüksek kalite ve estetikle hazırlanmış çözümler
