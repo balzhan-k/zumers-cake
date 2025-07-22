@@ -65,25 +65,25 @@ export default function PhotoUploadField({
 
         const newBlob = await response.json();
         onChange(newBlob.url);
-        setPreviewUrl(newBlob.url); // Update preview with the actual uploaded URL
+        setPreviewUrl(newBlob.url); 
       } catch (error) {
         console.error("Error uploading file:", error);
         alert("Fotoğraf yüklenirken bir hata oluştu.");
-        onChange(null); // Clear the value on error
+        onChange(null); 
         setPreviewUrl(null);
       } finally {
-        setIsLoading(false); // Always stop loading at the end of the process
+        setIsLoading(false); 
       }
     } else {
-      onChange(null); // Clear if no file is selected
+      onChange(null); 
       setPreviewUrl(null);
-      setIsLoading(false); // Stop loading if no file is selected
+      setIsLoading(false); 
     }
   };
 
   const handleRemoveClick = () => {
     onChange(null);
-    setPreviewUrl(null); // Also clear the preview when removing
+    setPreviewUrl(null); 
     const inputElement = document.getElementById(
       "photoUpload"
     ) as HTMLInputElement;

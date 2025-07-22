@@ -97,7 +97,6 @@ export default function About() {
         </TextElement>
       </section>
 
-      {/* Awards & Recognition Section */}
       <section className="md:mx-4 mt-8 mb-4">
         <h3 className="text-xl font-bold text-gray-800 mb-4">
           Eğitim & Ödüller
