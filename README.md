@@ -25,8 +25,7 @@ A modern web application built with Next.js, **Zumer's Cake** is designed for a 
 
 ## 📊 Project Overview
 
-
-
+<img width="1136" height="449" alt="Screenshot 2025-07-22 070533" src="https://github.com/user-attachments/assets/b4c4d074-31c2-4ea8-a45a-597ddac95314" />
 
 
 ## 💡 Usage
