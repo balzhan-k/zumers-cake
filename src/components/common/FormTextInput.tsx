@@ -3,7 +3,6 @@
 import React from "react";
 
 interface FormTextInputProps {
-  label: string;
   id: string;
   placeholder?: string;
   value?: string;
@@ -20,7 +19,6 @@ interface FormTextInputProps {
 }
 
 export default function FormTextInput({
-  label,
   id,
   placeholder,
   value,
@@ -46,12 +44,6 @@ export default function FormTextInput({
 
   return (
     <div className="mb-4">
-      <label
-        htmlFor={id}
-        className="block text-sm font-medium text-gray-700 mb-1"
-      >
-        {label}
-      </label>
       <input
         type={type}
         id={id}

@@ -15,12 +15,15 @@ const orderFormShape = {
   otherServingsDetails: z.string(),
   cakeType: z.string().nonempty("Lütfen bir seçim yapın."),
   otherCakeTypeDetails: z.string(),
-  filling: z.array(z.string()).max(3, "En fazla 3 içerik seçebilirsiniz."), 
+  filling: z.array(z.string()).max(3, "En fazla 3 içerik seçebilirsiniz."),
   otherFillingDetails: z.string(),
   colors: z.string().nonempty("Lütfen bir seçim yapın."),
   otherColorsDetails: z.string(),
   allergies: z.string().nonempty("Lütfen bir seçim yapın."),
-  photo: z.string().nullable(),
+  photo: z
+    .array(z.string())
+    .max(3, "En fazla 3 fotoğraf yükleyebilirsiniz.")
+    .nullable(),
   cakeNote: z.string().nonempty("Lütfen bu alanı doldurun."),
   specialRequests: z.string().nonempty("Lütfen bu alanı doldurun."),
   nameSurname: z.string().nonempty("Lütfen bu alanı doldurun."),
@@ -29,7 +32,10 @@ const orderFormShape = {
     .date({
       required_error: "Lütfen tarih ve saat seçin.",
     })
-    .min(new Date(), "Lütfen geçerli bir tarih ve saat giriniz."),
+    .min(
+      new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
+      "Sipariş teslim tarihi en az 3 gün sonra olmalıdır."
+    ),
 };
 
 export const orderFormSchema = z
@@ -39,8 +45,12 @@ export const orderFormSchema = z
       const mainValue = data[mainField as keyof typeof data];
       const otherValue = data[otherField as keyof typeof data];
 
+      const isOtherSelected = Array.isArray(mainValue)
+        ? mainValue.includes("Other")
+        : mainValue === "Other";
+
       if (
-        mainValue === "Other" &&
+        isOtherSelected &&
         (!otherValue || (otherValue as string).trim() === "")
       ) {
         ctx.addIssue({

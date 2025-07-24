@@ -28,7 +28,7 @@ export default function Home() {
           </TextElement>
 
           <div className="flex justify-center gap-4 pt-4">
-            <CustomLink href="/gallery" variant="button">
+            <CustomLink href="/gallery" variant="button" >
               Galeri
             </CustomLink>
             <CustomLink href="/order" variant="button">

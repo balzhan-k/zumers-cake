@@ -97,7 +97,7 @@ export default function OrderPage() {
       allergies: "",
       cakeNote: "",
       specialRequests: "",
-      photo: null,
+      photo: [],
       nameSurname: "",
       phone: "",
       deliveryDateAndTime: new Date(),
@@ -129,7 +129,7 @@ export default function OrderPage() {
   };
 
   return (
-    <main className="px-4 py-8 bg-rose-50 pb-20">
+    <main className="px-4 lg:max-w-7xl mx-auto py-8 bg-rose-50 pb-20">
       <TextElement variant="h2" className="text-center pb-4">
         Pasta Sipariş Formu
       </TextElement>
@@ -161,7 +161,6 @@ export default function OrderPage() {
                 })}
                 placeholder="Örn: Mezuniyet Töreni"
                 maxLength={100}
-                label="Lütfen diğer özel günü belirtiniz:"
                 id="otherOccasionInput"
               />
             )}
@@ -198,7 +197,6 @@ export default function OrderPage() {
                 })}
                 placeholder="Örn: 10 kişilik"
                 maxLength={100}
-                label="Lütfen diğer kişi sayısını belirtiniz:"
                 id="otherServingsInput"
               />
             )}
@@ -235,7 +233,6 @@ export default function OrderPage() {
                 })}
                 placeholder="Örn: Cheese Cake, Tiramisu"
                 maxLength={100}
-                label="Lütfen diğer pasta türünü belirtiniz:"
                 id="otherCakeTypeInput"
               />
             )}
@@ -290,7 +287,6 @@ export default function OrderPage() {
                 })}
                 placeholder="Örn: Kremalı, Çikolatalı, Meyveli"
                 maxLength={100}
-                label="Lütfen diğer pasta içeriğini belirtiniz:"
                 id="otherFillingInput"
               />
             )}
@@ -327,7 +323,6 @@ export default function OrderPage() {
                 })}
                 placeholder="Örn: Kırmızı, Mavi, Yeşil"
                 maxLength={100}
-                label="Lütfen diğer renk tercihlerini belirtiniz:"
                 id="otherColorsInput"
               />
             )}
@@ -342,7 +337,7 @@ export default function OrderPage() {
             <TextElement variant="h3">
               6. Alerji veya özel diyet durumu var mı?
             </TextElement>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 mb-4">
               {allergiesOptions.map((option) => (
                 <CustomFormButton
                   key={option.value}
@@ -365,8 +360,8 @@ export default function OrderPage() {
               7. Özel tema veya konsept örneği:
             </TextElement>
             <PhotoUploadField
-              value={watch("photo")}
-              onChange={(url) => setValue("photo", url)}
+              value={watch("photo") || []}
+              onChange={(urls) => setValue("photo", urls)}
               hintText="PNG, JPG, GIF"
               maxSizeMB={10}
               acceptedFileTypes={["image/png", "image/jpeg", "image/gif"]}
@@ -382,7 +377,7 @@ export default function OrderPage() {
             <TextElement variant="h3">
               8.Pasta üzerine yazılacak not:
             </TextElement>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 mb-4">
               <FormTextArea
                 id="cakeNote"
                 placeholder="Örn: Ada 1 yaşında"
@@ -402,7 +397,7 @@ export default function OrderPage() {
             <TextElement variant="h3">
               9. Pasta ile ilgili özel notlar veya istekler:
             </TextElement>
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 mb-4">
               <FormTextArea
                 id="specialRequests"
                 placeholder="Örn: Yeşil renk ağırlıklı olsun, özel şeker hamuru figürleri kullanılsın"
@@ -427,7 +422,6 @@ export default function OrderPage() {
                 required: "Doldurulması zorunlu alan",
               })}
               maxLength={100}
-              label="İsim Soyisim"
             />
             {errors.nameSurname && (
               <span className="text-red-500 text-sm">
@@ -443,7 +437,6 @@ export default function OrderPage() {
               placeholder="0555 555 55 55"
               {...register("phone", { required: "Doldurulması zorunlu alan" })}
               maxLength={11}
-              label="Telefon Numarası"
             />
             {errors.phone && (
               <span className="text-red-500 text-sm">
@@ -456,7 +449,7 @@ export default function OrderPage() {
             <TextElement variant="h3">
               12. Pastanın Hazır Olacağı Tarih ve Saat:
             </TextElement>
-            <div className="flex flex-wrap gap-3 w-full">
+            <div className="flex flex-wrap gap-3 mb-4 w-full">
               <Datetime
                 value={watch("deliveryDateAndTime") || new Date()}
                 onChange={(value) => {

@@ -8,6 +8,7 @@ interface CustomLinkProps {
 
   color?: string;
   children: React.ReactNode;
+  isActive?: boolean;
 }
 
 export default function CustomLink({
@@ -17,11 +18,12 @@ export default function CustomLink({
   href,
   color,
   children,
+  isActive,
 }: CustomLinkProps) {
   const baseStyles =
-    "text-foreground/80 transition-colors text-base md:text-md hover:text-rose-500";
+    "text-foreground/80 transition-colors text-base md:text-md";
   const buttonStyles =
-    "inline-block bg-rose-500 text-white px-6 py-2 rounded-full hover:bg-rose-700 transition-colors text-base md:text-md";
+    "inline-block bg-rose-500 text-white px-6 py-2 rounded-full hover:bg-rose-200 transition-colors text-base md:text-md";
 
   return (
     <Link
@@ -30,6 +32,7 @@ export default function CustomLink({
         ${variant === "button" ? buttonStyles : baseStyles}
         ${className}
         ${color ? `text-${color}` : ""}
+        ${isActive ? "text-rose-600" : "hover:text-rose-500"}
         `}
       onClick={onClick}
     >
