@@ -20,7 +20,7 @@ interface OrderFormData {
   allergies: string;
   cakeNote: string;
   specialRequests: string;
-  photo: string | null;
+  photo: string[] | null;
   nameSurname: string;
   phone: string;
   deliveryDateAndTime: Date;
@@ -116,7 +116,7 @@ Renkler: ${translateValue(data.colors, colorsTranslations)}${data.otherColorsDet
 ${data.allergies ? `Alerji Durumu: ${translateValue(data.allergies, allergiesTranslations)}` : ""}
 ${data.cakeNote ? `Pasta Üzerine Not: "${data.cakeNote}"` : ""}
 ${data.specialRequests ? `Özel İstekler: ${data.specialRequests}` : ""}
-${data.photo ? `Fotoğraf: ${data.photo}` : ""}
+${data.photo && data.photo.length > 0 ? `Fotoğraflar: ${data.photo.join(", ")}` : ""}
 MÜŞTERİ BİLGİLERİ:
 ==================
 İsim Soyisim: ${data.nameSurname}

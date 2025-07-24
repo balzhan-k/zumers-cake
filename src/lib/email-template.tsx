@@ -15,7 +15,7 @@ interface EmailTemplateProps {
     allergies: string | null;
     cakeNote: string;
     specialRequests: string;
-    photo: string | null;
+    photo: string[] | null;
     nameSurname: string;
     phone: string | null;
     deliveryDate: string | null;
@@ -360,7 +360,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
               </tr>
             )}
 
-            {data.photo && (
+            {data.photo && data.photo.length > 0 && (
               <tr style={{ backgroundColor: "#f9f9f9" }}>
                 <td
                   style={{
@@ -370,7 +370,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
                     borderBottom: "1px solid #eeeeee",
                   }}
                 >
-                  Yüklenen Fotoğraf:
+                  Yüklenen Fotoğraflar:
                 </td>
                 <td
                   style={{
@@ -379,17 +379,26 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
                     borderBottom: "1px solid #eeeeee",
                   }}
                 >
-                  <img
-                    src={data.photo}
-                    alt="Uploaded Photo"
-                    width={600}
-                    height={400}
-                    style={{
-                      maxWidth: "100%",
-                      height: "auto",
-                      borderRadius: "8px",
-                    }}
-                  />
+                  <div
+                    style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}
+                  >
+                    {data.photo.map((url, index) => (
+                      <img
+                        key={index}
+                        src={url}
+                        alt={`Uploaded Photo ${index + 1}`}
+                        width={200} 
+                        height={150} 
+                        style={{
+                          maxWidth: "100%",
+                          height: "auto",
+                          borderRadius: "8px",
+                          flex: "1 1 auto", 
+                          minWidth: "100px", 
+                        }}
+                      />
+                    ))}
+                  </div>
                 </td>
               </tr>
             )}

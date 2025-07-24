@@ -171,7 +171,7 @@ export default function PhotoUploadField({
               </span>{" "}
               veya buraya sürükleyin
             </p>
-            <p className="text-xs text-gray-500">{hintText}</p>
+            <p className="text-xs text-gray-500">{hintText} formatında en fazla 3 fotoğraf</p>
           </button>
         )}
       </div>
