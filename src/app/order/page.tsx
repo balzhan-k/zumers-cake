@@ -129,14 +129,11 @@ export default function OrderPage() {
   };
 
   return (
-    <main className="px-4 lg:max-w-7xl mx-auto py-8 bg-rose-50 pb-20">
-      <TextElement variant="h2" className="text-center pb-4">
-        Pasta Sipariş Formu
-      </TextElement>
+    <main className="px-4 lg:max-w-7xl mx-auto py-20 bg-rose-50">
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="container mx-auto px-4 py-8 pb-20 border border-rose-200 rounded-2xl shadow-md bg-stone-50">
+        <div className="container mx-auto p-8 border border-rose-200 rounded-2xl shadow-md bg-stone-50">
           <section className="mb-8">
-            <TextElement variant="h3">1. Özel Gün:</TextElement>
+            <TextElement variant="h3" className="pb-4">1. Özel Gün:</TextElement>
             <div className="flex flex-wrap gap-3 mb-4">
               {occasionOptions.map((option) => (
                 <CustomFormButton
@@ -149,7 +146,7 @@ export default function OrderPage() {
               ))}
             </div>
             {errors.occasion && (
-              <span className="text-red-500 text-sm">
+              <span className="text-rose-500  text-sm">
                 {errors.occasion.message}
               </span>
             )}
@@ -165,14 +162,14 @@ export default function OrderPage() {
               />
             )}
             {errors.otherOccasionDetails && (
-              <span className="text-red-500 text-sm">
+              <span className="text-rose-500  text-sm">
                 {errors.otherOccasionDetails.message}
               </span>
             )}
           </section>
 
           <section className="mb-8">
-            <TextElement variant="h3">2. Kaç Kişilik:</TextElement>
+            <TextElement variant="h3" className="pb-4">2. Kaç Kişilik:</TextElement>
             <div className="flex flex-wrap gap-3 mb-4">
               {servingsOptions.map((option) => (
                 <CustomFormButton
@@ -185,7 +182,7 @@ export default function OrderPage() {
               ))}
             </div>
             {errors.servings && (
-              <span className="text-red-500 text-sm">
+              <span className="text-rose-500  text-sm">
                 {errors.servings.message}
               </span>
             )}
@@ -201,14 +198,14 @@ export default function OrderPage() {
               />
             )}
             {errors.otherServingsDetails && (
-              <span className="text-red-500 text-sm">
+              <span className="text-rose-500  text-sm">
                 {errors.otherServingsDetails.message}
               </span>
             )}
           </section>
 
           <section className="mb-8">
-            <TextElement variant="h3">3. Pasta Türü:</TextElement>
+            <TextElement variant="h3" className="pb-4">3. Pasta Türü:</TextElement>
             <div className="flex flex-wrap gap-3 mb-4">
               {cakeTypeOptions.map((option) => (
                 <CustomFormButton
@@ -221,7 +218,7 @@ export default function OrderPage() {
               ))}
             </div>
             {errors.cakeType && (
-              <span className="text-red-500 text-sm">
+              <span className="text-rose-500  text-sm">
                 {errors.cakeType.message}
               </span>
             )}
@@ -237,14 +234,14 @@ export default function OrderPage() {
               />
             )}
             {errors.otherCakeTypeDetails && (
-              <span className="text-red-500 text-sm">
+              <span className="text-rose-500  text-sm">
                 {errors.otherCakeTypeDetails.message}
               </span>
             )}
           </section>
 
           <section className="mb-8">
-            <TextElement variant="h3">4. Pasta İçeriği:</TextElement>
+            <TextElement variant="h3" className="pb-4">4. Pasta İçeriği:</TextElement>
             <div className="flex flex-wrap gap-3 mb-4">
               {fillingOptions.map((option) => (
                 <CustomFormButton
@@ -275,7 +272,7 @@ export default function OrderPage() {
               ))}
             </div>
             {errors.filling && (
-              <span className="text-red-500 text-sm">
+              <span className="text-rose-500  text-sm">
                 {errors.filling.message}
               </span>
             )}
@@ -291,14 +288,14 @@ export default function OrderPage() {
               />
             )}
             {errors.otherFillingDetails && (
-              <span className="text-red-500 text-sm">
+              <span className="text-rose-500  text-sm">
                 {errors.otherFillingDetails.message}
               </span>
             )}
           </section>
 
           <section className="mb-8">
-            <TextElement variant="h3">5. Renk Tercihleri:</TextElement>
+            <TextElement variant="h3" className="pb-4">5. Renk Tercihleri:</TextElement>
             <div className="flex flex-wrap gap-3 mb-4">
               {colorsOptions.map((option) => (
                 <CustomFormButton
@@ -311,7 +308,7 @@ export default function OrderPage() {
               ))}
             </div>
             {errors.colors && (
-              <span className="text-red-500 text-sm">
+              <span className="text-rose-500  text-sm">
                 {errors.colors.message}
               </span>
             )}
@@ -327,14 +324,14 @@ export default function OrderPage() {
               />
             )}
             {errors.otherColorsDetails && (
-              <span className="text-red-500 text-sm">
+              <span className="text-rose-500  text-sm">
                 {errors.otherColorsDetails.message}
               </span>
             )}
           </section>
 
           <section className="mb-8">
-            <TextElement variant="h3">
+            <TextElement variant="h3" className="pb-4">
               6. Alerji veya özel diyet durumu var mı?
             </TextElement>
             <div className="flex flex-wrap gap-3 mb-4">
@@ -349,14 +346,14 @@ export default function OrderPage() {
               ))}
             </div>
             {errors.allergies && (
-              <span className="text-red-500 text-sm">
+              <span className="text-rose-500  text-sm">
                 {errors.allergies.message}
               </span>
             )}
           </section>
 
           <section className="mb-8">
-            <TextElement variant="h3">
+            <TextElement variant="h3" className="pb-4">
               7. Özel tema veya konsept örneği:
             </TextElement>
             <PhotoUploadField
@@ -367,14 +364,14 @@ export default function OrderPage() {
               acceptedFileTypes={["image/png", "image/jpeg", "image/gif"]}
             />
             {errors.photo && (
-              <span className="text-red-500 text-sm">
+              <span className="text-rose-500  text-sm">
                 {errors.photo.message}
               </span>
             )}
           </section>
 
           <section className="mb-8">
-            <TextElement variant="h3">
+            <TextElement variant="h3" className="pb-4">
               8.Pasta üzerine yazılacak not:
             </TextElement>
             <div className="flex flex-wrap gap-3 mb-4">
@@ -387,14 +384,14 @@ export default function OrderPage() {
               />
             </div>
             {errors.cakeNote && (
-              <span className="text-red-500 text-sm">
+              <span className="text-rose-500  text-sm">
                 {errors.cakeNote.message}
               </span>
             )}
           </section>
 
           <section className="mb-8">
-            <TextElement variant="h3">
+            <TextElement variant="h3" className="pb-4">
               9. Pasta ile ilgili özel notlar veya istekler:
             </TextElement>
             <div className="flex flex-wrap gap-3 mb-4">
@@ -407,14 +404,14 @@ export default function OrderPage() {
               />
             </div>
             {errors.specialRequests && (
-              <span className="text-red-500 text-sm">
+              <span className="text-rose-500  text-sm">
                 {errors.specialRequests.message}
               </span>
             )}
           </section>
 
           <section className="mb-8">
-            <TextElement variant="h3">10. İsim Soyisim:</TextElement>
+            <TextElement variant="h3" className="pb-4">10. İsim Soyisim:</TextElement>
             <FormTextInput
               id="nameSurname"
               placeholder="İsim Soyisim"
@@ -424,14 +421,14 @@ export default function OrderPage() {
               maxLength={100}
             />
             {errors.nameSurname && (
-              <span className="text-red-500 text-sm">
+              <span className="text-rose-500  text-sm">
                 {errors.nameSurname.message}
               </span>
             )}
           </section>
 
           <section className="mb-8">
-            <TextElement variant="h3">11. Telefon Numarası:</TextElement>
+            <TextElement variant="h3" className="pb-4">11. Telefon Numarası:</TextElement>
             <FormTextInput
               id="phone"
               placeholder="0555 555 55 55"
@@ -439,14 +436,14 @@ export default function OrderPage() {
               maxLength={11}
             />
             {errors.phone && (
-              <span className="text-red-500 text-sm">
+              <span className="text-rose-500  text-sm">
                 {errors.phone.message}
               </span>
             )}
           </section>
 
           <section className="mb-8">
-            <TextElement variant="h3">
+            <TextElement variant="h3" className="pb-4">
               12. Pastanın Hazır Olacağı Tarih ve Saat:
             </TextElement>
             <div className="flex flex-wrap gap-3 mb-4 w-full">
@@ -461,7 +458,7 @@ export default function OrderPage() {
                 timeFormat="HH:mm"
                 locale="tr"
                 isValidDate={(current) =>
-                  current.isAfter(moment().subtract(1, "day"))
+                  current.isAfter(moment().subtract(2, "days"))
                 }
                 inputProps={{
                   placeholder: "DD-MM-YYYY HH:mm",
@@ -472,7 +469,7 @@ export default function OrderPage() {
               />
             </div>
             {errors.deliveryDateAndTime && (
-              <span className="text-red-500 text-sm">
+              <span className="text-rose-500  text-sm">
                 {errors.deliveryDateAndTime.message}
               </span>
             )}

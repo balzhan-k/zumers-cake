@@ -15,7 +15,6 @@ interface FormTextInputProps {
   type?: "text" | "email" | "tel" | "number" | "password";
   isVisible?: boolean;
   name?: string;
-  ref?: React.Ref<HTMLInputElement>;
 }
 
 export default function FormTextInput({
@@ -31,7 +30,6 @@ export default function FormTextInput({
   type = "text",
   isVisible = true,
   name,
-  ref,
 }: FormTextInputProps) {
   if (!isVisible) return null;
 
@@ -48,7 +46,6 @@ export default function FormTextInput({
         type={type}
         id={id}
         name={name}
-        ref={ref}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
@@ -59,7 +56,7 @@ export default function FormTextInput({
         <p className="mt-1 text-xs text-gray-500">{hintText}</p>
       )}
       {error && isClicked && (
-        <p className="mt-1 text-xs text-red-500">{error}</p>
+        <p className="mt-1 text-xs text-rose-500">{error}</p>
       )}
     </div>
   );

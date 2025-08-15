@@ -26,7 +26,7 @@ export default function About() {
   };
 
   return (
-    <main className="container lg:max-w-7xl mx-auto px-4 py-8 pb-20">
+    <main className="container lg:max-w-7xl mx-auto px-4 pt-8 pb-20">
       <section className="flex flex-col items-center mt-8 px-4">
         <div className="relative w-36 h-36 md:w-48 md:h-48 lg:w-64 lg:h-64 rounded-full overflow-hidden border-4 border-white shadow-lg bg-red-400">
           <Image
@@ -138,6 +138,9 @@ export default function About() {
           onPrev={() => {}}
           hasNext={false}
           hasPrev={false}
+          isVisible={true}
+          variant="about"
+          showTitle={false}
         />
       )}
     </main>

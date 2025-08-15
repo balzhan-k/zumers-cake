@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import TextElement from "@/components/common/TextElement";
 
 interface ImageModalProps {
   src: string;
@@ -11,6 +12,10 @@ interface ImageModalProps {
   onPrev: () => void;
   hasNext: boolean;
   hasPrev: boolean;
+  isVisible: boolean;
+  title?: string;
+  variant?: "gallery" | "about";
+  showTitle?: boolean;
 }
 
 export default function ImageModal({
@@ -21,8 +26,12 @@ export default function ImageModal({
   onPrev,
   hasNext,
   hasPrev,
+  isVisible,
+  title,
+  variant = "gallery",
+  showTitle = true,
 }: ImageModalProps) {
-  if (!src) return null;
+  if (!isVisible) return null;
 
   return (
     <div
@@ -30,21 +39,32 @@ export default function ImageModal({
       onClick={onClose}
     >
       <div
-        className="relative max-w-5xl w-full max-h-full h-full flex items-center justify-center"
+        className="relative max-w-7xl w-full max-h-[95vh] flex flex-col items-center justify-center p-4"
         onClick={(e) => e.stopPropagation()}
       >
-        <Image
-          src={src}
-          alt={alt}
-          fill
-          style={{ objectFit: "contain" }}
-          className="rounded-lg shadow-2xl"
-          sizes="100vw"
-          priority
-        />
+        <div
+          className={`bg-stone-50 p-4 rounded-lg shadow-md flex flex-col items-center text-center transform transition-transform duration-300 ease-in-out ${variant === "about" ? "w-full" : "w-1/2"} h-full overflow-y-auto`}
+        >
+          <div className="relative w-full h-[85vh] mb-4 rounded-md overflow-hidden">
+            <Image
+              src={src}
+              alt={alt}
+              fill
+              style={{ objectFit: "cover" }}
+              className="rounded-md"
+              sizes="100vw"
+              priority
+            />
+          </div>
+          {showTitle && (
+            <TextElement variant="h3" className="text-rose-500">
+              {title}
+            </TextElement>
+          )}
+        </div>
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-white text-4xl font-bold bg-black bg-opacity-50 rounded-full w-12 h-12 flex items-center justify-center cursor-pointer hover:bg-opacity-75 transition-colors"
+          className="absolute top-4 right-4 text-white text-4xl font-bold bg-black bg-opacity-50 rounded-full w-12 h-12 flex items-center justify-center cursor-pointer hover:bg-opacity-75 transition-colors z-50"
           aria-label="Close image"
         >
           &times;
@@ -54,10 +74,10 @@ export default function ImageModal({
           <button
             onClick={onPrev}
             disabled={!hasPrev}
-            className={` // (3)
+            className={`
     absolute left-4 top-1/2 -translate-y-1/2 text-white p-2 rounded-full
     bg-black bg-opacity-50 hover:bg-opacity-75 transition-colors z-50
-    ${!hasPrev ? "opacity-50 cursor-not-allowed" : "cursor-pointer"} // (4)
+    ${!hasPrev ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}
   `}
             aria-label="Previous image"
           >
