@@ -51,26 +51,22 @@ export default function ImageModal({
           className={`bg-stone-50 p-4 rounded-lg shadow-md flex flex-col items-center text-center transform transition-transform duration-300 ease-in-out ${widthClass} h-full overflow-y-auto`}
         >
           {isAbout ? (
-            <div className="mb-4 overflow-hidden">
+            <div className="mb-0 lg:mb-4 overflow-hidden">
               <img
                 src={src}
                 alt={alt}
-                className="block w-auto h-auto max-w-[95vw] max-h-[90vh] rounded-md"
+                className="block p-4 w-auto h-auto max-w-[95vw] max-h-[90vh] rounded-md"
               />
             </div>
           ) : (
-            <div className="relative w-full h-[85vh] mb-4 rounded-md overflow-hidden">
+            <div className="relative w-full h-[60vh] mb-4 rounded-md overflow-hidden">
               <Image
                 src={src}
                 alt={alt}
                 fill
                 style={{ objectFit: "cover" }}
                 className="rounded-md"
-                sizes={
-                  isAbout
-                    ? "100vw"
-                    : "(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 50vw"
-                }
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 50vw"
                 priority
               />
             </div>

@@ -57,7 +57,7 @@ export default function GalleryDisplay({
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 lg:max-w-7xl mx-auto gap-6 cursor-pointer">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 lg:max-w-7xl mx-auto gap-6 cursor-pointer">
         {filteredItems.map((item) => (
           <div
             key={item.src}
@@ -67,7 +67,7 @@ export default function GalleryDisplay({
             }}
             className="bg-stone-50 p-4 rounded-lg shadow-md flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300 ease-in-out"
           >
-            <div className="relative w-full h-64 mb-4 rounded-md overflow-hidden">
+            <div className="relative w-full h-48 mb-4 rounded-md overflow-hidden">
               <Image
                 src={item.src}
                 alt={item.title}
