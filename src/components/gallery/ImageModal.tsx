@@ -33,9 +33,14 @@ export default function ImageModal({
 }: ImageModalProps) {
   if (!isVisible) return null;
 
+  const isAbout = variant === "about";
+  const widthClass = isAbout
+    ? "w-auto max-w-[95vw]"
+    : "w-full sm:w-11/12 md:w-3/4 lg:w-1/2";
+
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-2 sm:p-4"
       onClick={onClose}
     >
       <div
@@ -43,19 +48,33 @@ export default function ImageModal({
         onClick={(e) => e.stopPropagation()}
       >
         <div
-          className={`bg-stone-50 p-4 rounded-lg shadow-md flex flex-col items-center text-center transform transition-transform duration-300 ease-in-out ${variant === "about" ? "w-full" : "w-1/2"} h-full overflow-y-auto`}
+          className={`bg-stone-50 p-4 rounded-lg shadow-md flex flex-col items-center text-center transform transition-transform duration-300 ease-in-out ${widthClass} h-full overflow-y-auto`}
         >
-          <div className="relative w-full h-[85vh] mb-4 rounded-md overflow-hidden">
-            <Image
-              src={src}
-              alt={alt}
-              fill
-              style={{ objectFit: "cover" }}
-              className="rounded-md"
-              sizes="100vw"
-              priority
-            />
-          </div>
+          {isAbout ? (
+            <div className="mb-4 overflow-hidden">
+              <img
+                src={src}
+                alt={alt}
+                className="block w-auto h-auto max-w-[95vw] max-h-[90vh] rounded-md"
+              />
+            </div>
+          ) : (
+            <div className="relative w-full h-[85vh] mb-4 rounded-md overflow-hidden">
+              <Image
+                src={src}
+                alt={alt}
+                fill
+                style={{ objectFit: "cover" }}
+                className="rounded-md"
+                sizes={
+                  isAbout
+                    ? "100vw"
+                    : "(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 50vw"
+                }
+                priority
+              />
+            </div>
+          )}
           {showTitle && (
             <TextElement variant="h3" className="text-rose-500">
               {title}
