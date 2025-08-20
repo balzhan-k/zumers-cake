@@ -18,12 +18,12 @@ export default function AwardItem({
   return (
     <div
       onClick={onClick}
-      className="flex items-center space-x-4 p-4 border border-rose-200 rounded-lg shadow-sm bg-white cursor-pointer hover:shadow-md transition-shadow duration-300 ease-in-out"
+      className="flex items-center space-x-4 p-4 border border-rose-100 rounded-lg shadow-sm bg-white cursor-pointer hover:shadow-md transition-shadow duration-300 ease-in-out"
     >
             {Icon && <Icon className="text-4xl text-rose-500" />}          
       <div>
-        <p className="text-sm font-bold text-gray-800">{title}</p>
-        <p className="text-gray-600 text-sm">{subtitle}</p>
+        <p className="text-sm font-bold text-stone-800">{title}</p>
+        <p className="text-stone-600 text-sm">{subtitle}</p>
       </div>
     </div>
   );

@@ -129,7 +129,7 @@ export default function OrderPage() {
   };
 
   return (
-    <main className="px-4 lg:max-w-7xl mx-auto py-20 bg-rose-50">
+    <main className="px-6 lg:max-w-7xl mx-auto py-20 bg-rose-50">
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="container mx-auto p-8 border border-rose-200 rounded-2xl shadow-md bg-stone-50">
           <section className="mb-8">

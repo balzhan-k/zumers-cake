@@ -37,12 +37,12 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <section className="container mx-auto px-4">
-        <div className="flex flex-col flex-start p-8 w-full">
-          <TextElement variant="h2" className="text-start">
+      <section className="container mx-auto lg:px-4">
+        <div className="flex flex-col flex-start p-9 w-full">
+          <TextElement variant="h2" className="text-start text-stone-700">
             Hikayemiz
           </TextElement>
-          <TextElement variant="p">
+          <TextElement variant="p" className="text-stone-700">
             Zümer&apos;s Cake olarak, lezzetli pastalar aracılığıyla neşe dolu
             anlar yaratmaya, insanların hayatına tatlı bir dokunuş katmaya
             çalışıyorum. Her tarifimde en taze malzemeleri kullanıyor, her

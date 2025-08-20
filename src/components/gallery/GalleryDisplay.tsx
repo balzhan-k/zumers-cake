@@ -67,7 +67,7 @@ export default function GalleryDisplay({
             }}
             className="bg-stone-50 p-4 rounded-lg shadow-md flex flex-col items-center text-center transform hover:scale-105 transition-transform duration-300 ease-in-out"
           >
-            <div className="relative w-full h-48 mb-4 rounded-md overflow-hidden">
+            <div className="relative w-full h-56 mb-4 rounded-md overflow-hidden">
               <Image
                 src={item.src}
                 alt={item.title}
@@ -77,8 +77,10 @@ export default function GalleryDisplay({
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               />
             </div>
-            <TextElement variant="h3" className="text-rose-500">
-              {" "}
+            <TextElement
+              variant="h3"
+              className="text-stone-600 font-dancing"
+            >
               {item.title}
             </TextElement>
           </div>

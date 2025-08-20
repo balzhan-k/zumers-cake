@@ -5,7 +5,7 @@ export default function Gallery() {
   const { items, categories } = getGalleryData();
 
   return (
-    <main className="container mx-auto px-4 pt-8 pb-20">
+    <main className="container mx-auto px-6 pt-8 pb-20">
       <GalleryDisplay galleryItems={items} categories={categories} />
     </main>
   );

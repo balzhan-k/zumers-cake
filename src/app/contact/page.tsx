@@ -63,7 +63,7 @@ const contactDetails: ContactItem[] = [
 
 export default function Contact() {
   return (
-    <main className="container lg:max-w-7xl mx-auto px-4 pt-8 pb-20">
+    <main className="container lg:max-w-7xl mx-auto px-6 pt-8 pb-20">
       <TextElement variant="h2">Bizimle iletişime geçin</TextElement>
       <TextElement variant="p">
         Her türlü soru, öneri ya da özel talebiniz için bizimle iletişime

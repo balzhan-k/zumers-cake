@@ -59,20 +59,20 @@ export default function ImageModal({
               />
             </div>
           ) : (
-            <div className="relative w-full h-[60vh] mb-4 rounded-md overflow-hidden">
+            <div className="relative w-full h-[65vh] lg:h-[80vh] mb-4 rounded-md overflow-hidden">
               <Image
                 src={src}
                 alt={alt}
                 fill
                 style={{ objectFit: "cover" }}
                 className="rounded-md"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 75vw, 50vw"
+                sizes="(max-width: 640px) 85vw, (max-width: 1024px) 65vw, 50vw"
                 priority
               />
             </div>
           )}
           {showTitle && (
-            <TextElement variant="h3" className="text-rose-500">
+            <TextElement variant="h3" className="text-stone-600 font-dancing">
               {title}
             </TextElement>
           )}

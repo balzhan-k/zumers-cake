@@ -26,7 +26,7 @@ export default function About() {
   };
 
   return (
-    <main className="container lg:max-w-7xl mx-auto px-4 pt-8 pb-20">
+    <main className="container lg:max-w-7xl mx-auto px-6 pt-8 pb-20">
       <section className="flex flex-col items-center mt-8 px-4">
         <div className="relative w-36 h-36 md:w-48 md:h-48 lg:w-64 lg:h-64 rounded-full overflow-hidden border-4 border-white shadow-lg bg-red-400">
           <Image
@@ -38,15 +38,15 @@ export default function About() {
         </div>
         <TextElement
           variant="h2"
-          className="text-2xl font-bold text-gray-800 mt-4"
+          className="text-2xl font-bold text-stone-800 mt-4"
         >
           Şef Zümer Şener
         </TextElement>
         <p className="text-base text-rose-600 font-medium">Ödüllü Pasta Şefi</p>
       </section>
 
-      <section className="bg-white px-5 rounded-lg shadow-md mt-8 text-gray-700 text-base leading-relaxed">
-        <TextElement variant="p" className=" font-bold pb-0 pt-5">
+      <section className="bg-white p-5 rounded-lg shadow-md mt-8 text-stone-700 text-base leading-relaxed border-rose-100 border">
+        <TextElement variant="p" className=" font-bold pb-0">
           Lezzeti Sanata Dönüştüren Pasta Sanatçısı
         </TextElement>
         <TextElement variant="p">
@@ -90,7 +90,7 @@ export default function About() {
         <TextElement variant="p" className=" font-bold pb-0">
           Hayalinizdeki Tatlılar İçin İletişime Geçin
         </TextElement>
-        <TextElement variant="p" className="pb-5">
+        <TextElement variant="p">
           Özel günleriniz için özgün ve zarif tatlı tasarımları hakkında detaylı
           bilgi almak veya teklif talep etmek için lütfen benimle iletişime
           geçin. Size özel, yüksek kalite ve estetikle hazırlanmış çözümler
@@ -99,10 +99,10 @@ export default function About() {
       </section>
 
       <section className="mt-8 mb-4">
-        <h3 className="text-xl font-bold text-gray-800 mb-4">
+        <h3 className="text-xl font-bold text-stone-800 mb-4">
           Eğitim & Ödüller
         </h3>
-        <div className="grid grid-cols-1 space-y-3 lg:space-y-0 lg:grid lg:grid-cols-4 gap-2">
+        <div className="grid grid-cols-1 space-y-3 lg:space-y-0 lg:grid lg:grid-cols-4 gap-2 text-stone-700">
           <AwardItem
             Icon={FaCertificate}
             title="İşletmelerde Hijyen Programı"
